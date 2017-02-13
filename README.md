@@ -1,0 +1,2 @@
+# PageObjectGenerator
+DIPLOMA
