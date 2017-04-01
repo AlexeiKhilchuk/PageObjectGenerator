@@ -20,4 +20,6 @@ public class Constants {
         }
     }
 
+    public enum BrowserType {CHROME, FIREFOX}
+
 }
