@@ -1,4 +1,5 @@
 package by.bsuir.pogen.models;
+import by.bsuir.pogen.constants.Constants;
 import org.jsoup.nodes.Element;
 
 /**
@@ -12,18 +13,27 @@ public class WebElement {
     private String nameLocator;
     private String tagNameLocator;
     private String linkTextLocator;
-    private String partialLinkTextLocator;
     private String xpathLocator;
     private String cssLocator;
     private String idLocator;
+    private String classNameLocator;
+
+    private Constants.LocatorType preferredLocatorType;
+    private Boolean isForGeneration;
 
     public WebElement(Element elem){
         this.element = elem;
         this.elementName = generateElementName();
+        this.preferredLocatorType = Constants.LocatorType.XPATH;
+        this.isForGeneration = false;
     }
 
     public String getElementName() {
         return elementName;
+    }
+
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
     }
 
     public Element getElement() {
@@ -54,14 +64,6 @@ public class WebElement {
         this.linkTextLocator = linkTextLocator;
     }
 
-    public String getPartialLinkTextLocator() {
-        return partialLinkTextLocator;
-    }
-
-    public void setPartialLinkTextLocator(String partialLinkTextLocator) {
-        this.partialLinkTextLocator = partialLinkTextLocator;
-    }
-
     public String getXpathLocator() {
         return xpathLocator;
     }
@@ -86,14 +88,35 @@ public class WebElement {
         this.idLocator = idLocator;
     }
 
+    public String getClassNameLocator() {
+        return classNameLocator;
+    }
+
+    public void setClassNameLocator(String classNameLocator) {
+        this.classNameLocator = classNameLocator;
+    }
+
+    public Constants.LocatorType getPreferredLocatorType() {
+        return preferredLocatorType;
+    }
+
+    public void setPreferredLocatorType(Constants.LocatorType preferredLocatorType) {
+        this.preferredLocatorType = preferredLocatorType;
+    }
+
+    public Boolean isForGeneration() {
+        return isForGeneration;
+    }
+
+    public void setForGeneration(Boolean forGeneration) {
+        this.isForGeneration = forGeneration;
+    }
+
     private String generateElementName(){
         String resultName = this.element.tagName();
 
         if (!this.element.attr("name").equals("")) {
             resultName += ("_" + this.element.attr("name"));
-        }
-        else if (!this.element.attr("href").equals("")){
-            resultName += ("_" + this.element.attr("href").replace("#",""));
         }
         else if (!this.element.attr("id").equals("")){
             resultName += ("_" + this.element.attr("id"));
@@ -101,15 +124,24 @@ public class WebElement {
         else if (!this.element.attr("class").equals("")){
             resultName += ("_" + this.element.attr("class"));
         }
+        else if (!this.element.attr("href").equals("")){
+            resultName += ("_" + this.element.attr("href"));
+        }
 
-        resultName = resultName.replace(" ", "_");
-        resultName = resultName.replace("-", "_");
+
+        resultName = resultName.replaceAll(" ", "_");
+        resultName = resultName.replaceAll("-", "_");
+        resultName = resultName.replaceAll("\\.", "");
+        resultName = resultName.replaceAll("http://", "");
+        resultName = resultName.replaceAll("https://", "");
+        resultName = resultName.replaceAll("/", "");
+        resultName = resultName.replaceAll("#","");
 
         return resultName;
     }
 
     @Override
     public String toString() {
-        return elementName;
+        return isForGeneration ? "[r] " + elementName : elementName;
    }
 }

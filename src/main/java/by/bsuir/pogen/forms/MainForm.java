@@ -2,7 +2,7 @@ package by.bsuir.pogen.forms;
 
 import by.bsuir.pogen.constants.Constants;
 import by.bsuir.pogen.utils.Http;
-import by.bsuir.pogen.utils.WebDriver;
+import by.bsuir.pogen.utils.WebDriverHelper;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -42,40 +42,35 @@ public class MainForm extends JFrame {
 
         btnAnalyze.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*languageList.clear();
-                if (rbLanguageJava.isSelected()) languageList.add(Constants.ProgrammingLanguage.JAVA);
-                if (rbLanguageCSharp.isSelected()) languageList.add(Constants.ProgrammingLanguage.C_SHARP);
-
-                if (languageList.size() == 0) {
-                    JOptionPane.showMessageDialog(null, "Programming language(s) are not selected.");
-                }*/
-                /*for (Constants.ProgrammingLanguage language : languageList) {*/
-                if (webDriver != null) {
-                    try {
-                        webDriver.close();
-                    } catch (Exception ignored) {
+                if (lblSource.getText().contains("url") || lblSource.getText().contains("file")) {
+                    if (webDriver != null) {
+                        try {
+                            webDriver.close();
+                        } catch (Exception ignored) {
+                        }
+                        webDriver.quit();
                     }
-                    webDriver.quit();
-                }
-                if (lblHtmlLoaded.getText().equals(Constants.LoadStatus.LOADED.toString())) {
-                    webDriver = WebDriver.getWebDriver(Constants.BrowserType.CHROME, null);
-                    if (lblSource.getText().contains("file")) {
-                        webDriver.get("file:///" + pagePath);
-                    } else if (lblSource.getText().contains("url")) {
-                        webDriver.get(pagePath);
+                    if (lblHtmlLoaded.getText().equals(Constants.LoadStatus.LOADED.toString())) {
+                        webDriver = WebDriverHelper.getWebDriver(Constants.BrowserType.CHROME, null);
+                        if (lblSource.getText().contains("file")) {
+                            webDriver.get("file:///" + pagePath);
+                        } else if (lblSource.getText().contains("url")) {
+                            webDriver.get(pagePath);
+                        }
                     }
-                }
 
-                setVisible(false);
-                GeneratorForm generatorForm = new GeneratorForm(webDriver);
-                generatorForm.setContentPane(generatorForm.mainPanel);
-                generatorForm.setSize(500, 400);
-                generatorForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                generatorForm.setVisible(true);
-                generatorForm.setResizable(true);
-                generatorForm.setLocationRelativeTo(null);
-                generatorForm.pack();
-                /*}*/
+                    setVisible(false);
+                    GeneratorForm generatorForm = new GeneratorForm(webDriver);
+                    generatorForm.setContentPane(generatorForm.mainPanel);
+                    generatorForm.setSize(500, 400);
+                    generatorForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    generatorForm.setVisible(true);
+                    generatorForm.setResizable(false);
+                    generatorForm.setLocationRelativeTo(null);
+                    generatorForm.pack();
+                } else {
+                    JOptionPane.showMessageDialog(null, "HTML was not loaded.");
+                }
             }
         });
 
@@ -119,7 +114,7 @@ public class MainForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (lblHtmlLoaded.getText() == Constants.LoadStatus.LOADED.toString()) {
-                    webDriver = WebDriver.getWebDriver(Constants.BrowserType.CHROME, null);
+                    webDriver = WebDriverHelper.getWebDriver(Constants.BrowserType.CHROME, null);
                     if (lblSource.getText().contains("file")) {
                         webDriver.get("file:///" + pagePath);
                     } else if (lblSource.getText().contains("url")) {
@@ -160,28 +155,32 @@ public class MainForm extends JFrame {
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayoutManager(8, 7, new Insets(0, 0, 0, 0), -1, -1));
         btnAnalyze = new JButton();
-        btnAnalyze.setText("Analyze");
-        mainPanel.add(btnAnalyze, new GridConstraints(6, 1, 1, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        btnAnalyze.setFont(new Font("Segoe UI Light", btnAnalyze.getFont().getStyle(), 18));
+        btnAnalyze.setText("Analyze Page");
+        mainPanel.add(btnAnalyze, new GridConstraints(6, 1, 1, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 30), null, 0, false));
         final JLabel label1 = new JLabel();
+        label1.setFont(new Font("Segoe UI Semibold", label1.getFont().getStyle(), 18));
         label1.setText("Using URL:");
         mainPanel.add(label1, new GridConstraints(0, 2, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         tbUrl = new JTextField();
-        mainPanel.add(tbUrl, new GridConstraints(1, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        tbUrl.setFont(new Font("Segoe UI", tbUrl.getFont().getStyle(), 16));
+        mainPanel.add(tbUrl, new GridConstraints(1, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         final JLabel label2 = new JLabel();
+        label2.setFont(new Font("Segoe UI Semibold", label2.getFont().getStyle(), 18));
         label2.setText("Using .html file:");
         mainPanel.add(label2, new GridConstraints(2, 2, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         browseAFileButton = new JButton();
+        browseAFileButton.setFont(new Font("Segoe UI Light", browseAFileButton.getFont().getStyle(), 18));
         browseAFileButton.setText("Browse a file");
-        mainPanel.add(browseAFileButton, new GridConstraints(3, 2, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mainPanel.add(browseAFileButton, new GridConstraints(3, 2, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 30), null, 0, false));
         fetchButton = new JButton();
+        fetchButton.setFont(new Font("Segoe UI Light", fetchButton.getFont().getStyle(), 18));
         fetchButton.setText("Fetch");
-        mainPanel.add(fetchButton, new GridConstraints(1, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 32), null, 0, false));
+        mainPanel.add(fetchButton, new GridConstraints(1, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 30), null, 0, false));
         final JLabel label3 = new JLabel();
+        label3.setFont(new Font("Segoe UI Semibold", label3.getFont().getStyle(), 18));
         label3.setText("Status:");
         mainPanel.add(label3, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(39, 16), null, 0, false));
-        final JLabel label4 = new JLabel();
-        label4.setText("HTML code of the page");
-        mainPanel.add(label4, new GridConstraints(0, 1, 6, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         mainPanel.add(spacer1, new GridConstraints(0, 6, 8, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(10, 10), null, null, 0, false));
         final Spacer spacer2 = new Spacer();
@@ -194,9 +193,11 @@ public class MainForm extends JFrame {
         mainPanel.add(lblHtmlLoaded, new GridConstraints(5, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(70, 16), null, 0, false));
         btnPreview = new JButton();
         btnPreview.setEnabled(false);
+        btnPreview.setFont(new Font("Segoe UI Light", btnPreview.getFont().getStyle(), 18));
         btnPreview.setText("Preview");
-        mainPanel.add(btnPreview, new GridConstraints(5, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 32), null, 0, false));
+        mainPanel.add(btnPreview, new GridConstraints(5, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 30), null, 0, false));
         lblSource = new JLabel();
+        lblSource.setFont(new Font("Segoe UI Semibold", lblSource.getFont().getStyle(), 18));
         lblSource.setText("");
         mainPanel.add(lblSource, new GridConstraints(5, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, -1), new Dimension(38, 0), null, 0, false));
         label1.setLabelFor(tbUrl);

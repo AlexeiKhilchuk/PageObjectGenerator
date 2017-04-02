@@ -1,29 +1,624 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="by.bsuir.pogen.forms.GeneratorForm">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="918" height="496"/>
+      <xy x="20" y="20" width="1650" height="705"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="d0ec0" class="javax.swing.JTree" binding="trWebElements">
+      <splitpane id="fda85">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="756e3" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Elements:"/>
+          <dividerSize value="5"/>
         </properties>
-      </component>
+        <border type="none">
+          <color color="-12828863"/>
+        </border>
+        <children>
+          <splitpane id="5accd">
+            <constraints>
+              <splitpane position="left"/>
+            </constraints>
+            <properties>
+              <continuousLayout value="true"/>
+              <dividerSize value="2"/>
+              <enabled value="false"/>
+              <orientation value="0"/>
+            </properties>
+            <border type="line">
+              <color color="-12828863"/>
+            </border>
+            <children>
+              <component id="756e3" class="javax.swing.JLabel">
+                <constraints>
+                  <splitpane position="left"/>
+                </constraints>
+                <properties>
+                  <font name="Segoe UI" size="18" style="1"/>
+                  <text value="Web Elements:          "/>
+                </properties>
+              </component>
+              <grid id="9fe02" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <splitpane position="right"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="8120c" class="javax.swing.JButton" binding="btnGenerateAllLocators">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate Locators For Elements"/>
+                    </properties>
+                  </component>
+                  <scrollpane id="b4741">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="d0ec0" class="javax.swing.JTree" binding="trWebElements">
+                        <constraints/>
+                        <properties>
+                          <font name="Segoe UI Light" size="14"/>
+                        </properties>
+                        <clientProperties>
+                          <JTree.lineStyle class="java.lang.String" value=""/>
+                        </clientProperties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                </children>
+              </grid>
+            </children>
+          </splitpane>
+          <splitpane id="468be">
+            <constraints>
+              <splitpane position="right"/>
+            </constraints>
+            <properties>
+              <dividerSize value="2"/>
+              <enabled value="false"/>
+              <orientation value="0"/>
+            </properties>
+            <border type="line"/>
+            <children>
+              <component id="69bd9" class="javax.swing.JLabel">
+                <constraints>
+                  <splitpane position="left"/>
+                </constraints>
+                <properties>
+                  <font name="Segoe UI" size="18" style="1"/>
+                  <text value="Web Element Properties:"/>
+                </properties>
+              </component>
+              <grid id="696ec" binding="pnlWebElementProps" layout-manager="GridLayoutManager" row-count="16" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <splitpane position="right"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="5821a" class="javax.swing.JTextField" binding="tbElementName">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="b626e" class="javax.swing.JTextField" binding="tbTagName">
+                    <constraints>
+                      <grid row="8" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="4883d" class="javax.swing.JTextField" binding="tbLinkText">
+                    <constraints>
+                      <grid row="9" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="61cd6" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="258" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="18" style="1"/>
+                      <text value="Locators (right click to generate):"/>
+                    </properties>
+                  </component>
+                  <component id="20daf" class="javax.swing.JTextField" binding="tbCss">
+                    <constraints>
+                      <grid row="10" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="ee6af" class="javax.swing.JButton" binding="btnSaveTagNameLocator">
+                    <constraints>
+                      <grid row="8" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                  <component id="f098a" class="javax.swing.JButton" binding="btnSaveLinkTextLocator">
+                    <constraints>
+                      <grid row="9" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                  <component id="d8b9e" class="javax.swing.JButton" binding="btnSaveCssLocator">
+                    <constraints>
+                      <grid row="10" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                  <component id="7c26d" class="javax.swing.JButton" binding="btnSaveXpathLocator">
+                    <constraints>
+                      <grid row="11" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                  <component id="4236" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="b626e"/>
+                      <text value="Tag Name:"/>
+                    </properties>
+                  </component>
+                  <component id="fe1b3" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="4883d"/>
+                      <text value="Link Text:"/>
+                    </properties>
+                  </component>
+                  <component id="50bbf" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="20daf"/>
+                      <text value="CSS:"/>
+                    </properties>
+                  </component>
+                  <component id="e2e1" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="ddcff"/>
+                      <text value="XPath:"/>
+                    </properties>
+                  </component>
+                  <component id="b3e2c" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="5821a"/>
+                      <text value="Element Name:"/>
+                    </properties>
+                  </component>
+                  <component id="aa332" class="javax.swing.JComboBox" binding="cbPrefferedLocator">
+                    <constraints>
+                      <grid row="13" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="97628" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="53"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <text value="Preferred Locator:"/>
+                    </properties>
+                  </component>
+                  <component id="7117b" class="javax.swing.JLabel" binding="lblReadyForGeneration">
+                    <constraints>
+                      <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="258" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="20" style="1"/>
+                      <horizontalAlignment value="2"/>
+                      <horizontalTextPosition value="0"/>
+                      <labelFor value=""/>
+                      <text value="STATUS"/>
+                    </properties>
+                  </component>
+                  <component id="fadfe" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="5821a"/>
+                      <text value="Ready For Generation:"/>
+                    </properties>
+                  </component>
+                  <component id="f0405" class="javax.swing.JLabel" binding="lblLocatorActions">
+                    <constraints>
+                      <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="164" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="18" style="1"/>
+                      <text value="Locator Actions:"/>
+                    </properties>
+                  </component>
+                  <component id="122f9" class="javax.swing.JButton" binding="btnGenerateTagNameLocator">
+                    <constraints>
+                      <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="f8216" class="javax.swing.JButton" binding="btnGenerateLinkTextLocator">
+                    <constraints>
+                      <grid row="9" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="3568" class="javax.swing.JButton" binding="btnGenerateCssLocator">
+                    <constraints>
+                      <grid row="10" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="58cdd" class="javax.swing.JButton" binding="btnGenerateXpathLocator">
+                    <constraints>
+                      <grid row="11" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="a1e67" class="javax.swing.JButton" binding="btnGenerateLocatorsForElement">
+                    <constraints>
+                      <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate Locators"/>
+                    </properties>
+                  </component>
+                  <component id="da01b" class="javax.swing.JButton" binding="btnValidatePrefferedLocator">
+                    <constraints>
+                      <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Validate Preferred Locator"/>
+                    </properties>
+                  </component>
+                  <component id="ddcff" class="javax.swing.JTextField" binding="tbXpath">
+                    <constraints>
+                      <grid row="11" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="15c75" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="c0486"/>
+                      <text value="Name:"/>
+                    </properties>
+                  </component>
+                  <component id="c0486" class="javax.swing.JTextField" binding="tbName">
+                    <constraints>
+                      <grid row="5" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="96726" class="javax.swing.JButton" binding="btnGenerateNameLocator">
+                    <constraints>
+                      <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="a3acd" class="javax.swing.JButton" binding="btnSaveNameLocator">
+                    <constraints>
+                      <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="50" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                  <component id="b80c0" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="c0486"/>
+                      <text value="Id:"/>
+                    </properties>
+                  </component>
+                  <component id="39144" class="javax.swing.JTextField" binding="tbId">
+                    <constraints>
+                      <grid row="6" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="2188b" class="javax.swing.JButton" binding="btnGenerateId">
+                    <constraints>
+                      <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="d3e40" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="c0486"/>
+                      <text value="Class Name:"/>
+                    </properties>
+                  </component>
+                  <component id="c266d" class="javax.swing.JTextField" binding="tbClassName">
+                    <constraints>
+                      <grid row="7" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="e2079" class="javax.swing.JButton" binding="btnGenerateClassNameLocator">
+                    <constraints>
+                      <grid row="7" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="bc8ff" class="javax.swing.JButton" binding="btnSaveElementName">
+                    <constraints>
+                      <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                  <component id="9f98c" class="javax.swing.JButton" binding="btnSetElementReady">
+                    <constraints>
+                      <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Set Ready"/>
+                    </properties>
+                  </component>
+                  <component id="f5726" class="javax.swing.JButton" binding="btnSetElementUnready">
+                    <constraints>
+                      <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Set Not Ready"/>
+                    </properties>
+                  </component>
+                  <component id="389cb" class="javax.swing.JButton" binding="btnShowOnPage">
+                    <constraints>
+                      <grid row="15" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Highlight On Page"/>
+                    </properties>
+                  </component>
+                  <component id="5d486" class="javax.swing.JButton" binding="btnSaveAllLocators">
+                    <constraints>
+                      <grid row="15" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18" style="1"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                  <component id="227ca" class="javax.swing.JButton" binding="btnSavePrefferedLocator">
+                    <constraints>
+                      <grid row="13" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </splitpane>
+        </children>
+      </splitpane>
     </children>
   </grid>
 </form>
