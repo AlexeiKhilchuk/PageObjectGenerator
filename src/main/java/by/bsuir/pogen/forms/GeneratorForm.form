@@ -39,7 +39,7 @@
                 </constraints>
                 <properties>
                   <font name="Segoe UI" size="18" style="1"/>
-                  <text value="Web Elements:          "/>
+                  <text value="Web Elements (right click to set ready):"/>
                 </properties>
               </component>
               <grid id="9fe02" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

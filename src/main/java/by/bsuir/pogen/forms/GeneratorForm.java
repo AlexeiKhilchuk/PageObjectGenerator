@@ -625,6 +625,20 @@ public class GeneratorForm extends JFrame {
         });
 
 
+        trWebElements.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (selectedElement != null) {
+                    if (e.getButton() == MouseEvent.BUTTON3) {
+                        selectedElement.setForGeneration(!selectedElement.isForGeneration());
+                        trWebElements.repaint();
+                        lblReadyForGeneration.setText(selectedElement.isForGeneration() ? "Ready" : "Unready");
+
+                    }
+                }
+            }
+        });
     }
 
 
@@ -664,7 +678,7 @@ public class GeneratorForm extends JFrame {
         splitPane2.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-12828863)), null));
         final JLabel label1 = new JLabel();
         label1.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        label1.setText("Web Elements:          ");
+        label1.setText("Web Elements (right click to set ready):");
         splitPane2.setLeftComponent(label1);
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
