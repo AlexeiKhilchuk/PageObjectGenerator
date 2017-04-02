@@ -23,38 +23,45 @@ public class LocatorBuilder {
 
     public String getXpathLocator(WebElement element, RemoteWebDriver webDriver){
         LOG.info(String.format("Building XPath locator for '%s' element", element.getElementName()));
-        String locator = (String) ((JavascriptExecutor) webDriver).executeScript(
-                "getXPath=function(node)" +
-                    "{" +
-                        "if (node.id !== '')" +
-                        "{" +
+        try {
+            String locator = (String) ((JavascriptExecutor) webDriver).executeScript(
+                    "getXPath=function(node)" +
+                            "{" +
+                            "if (node.id !== '')" +
+                            "{" +
                             "return '//' + node.tagName.toLowerCase() + '[@id=\"' + node.id + '\"]'" +
-                        "}" +
-                        "if (node === document.body)" +
-                        "{" +
+                            "}" +
+                            "if (node === document.body)" +
+                            "{" +
                             "return node.tagName.toLowerCase()" +
-                        "}" +
-                        "var nodeCount = 0;" +
-                        "var childNodes = node.parentNode.childNodes;" +
-                        "for (var i=0; i<childNodes.length; i++)" +
-                        "{" +
+                            "}" +
+                            "var nodeCount = 0;" +
+                            "var childNodes = node.parentNode.childNodes;" +
+                            "for (var i=0; i<childNodes.length; i++)" +
+                            "{" +
                             "var currentNode = childNodes[i];" +
                             "if (currentNode === node)" +
                             "{" +
-                                "return getXPath(node.parentNode) + '/' + node.tagName.toLowerCase() + '[' + (nodeCount+1) + ']'" +
-                             "}" +
+                            "return getXPath(node.parentNode) + '/' + node.tagName.toLowerCase() + '[' + (nodeCount+1) + ']'" +
+                            "}" +
                             "if (currentNode.nodeType === 1 && currentNode.tagName.toLowerCase() === node.tagName.toLowerCase())" +
                             "{" +
-                                "nodeCount++" +
+                            "nodeCount++" +
                             "}" +
-                        "}" +
-                    "};" +
-                "return getXPath(arguments[0]);", webDriver.findElement(By.cssSelector(element.getElement().cssSelector())));
+                            "}" +
+                            "};" +
+                            "return getXPath(arguments[0]);", webDriver.findElement(By.cssSelector(element.getElement().cssSelector())));
 
-        if (!locator.substring(0, 2).equals("//")) {
-            locator = "//" + locator;
+            if (!locator.substring(0, 2).equals("//")) {
+                locator = "//" + locator;
+            }
+            return locator;
         }
-        return locator;
+        catch (Exception e){
+            LOG.error("The was an error during generating xpath locator",e);
+            return "";
+        }
+
     }
 
     public String getNameLocator(WebElement element){
