@@ -3,6 +3,7 @@ package by.bsuir.pogen.forms;
 import by.bsuir.pogen.constants.Constants;
 import by.bsuir.pogen.models.WebElement;
 import by.bsuir.pogen.models.WebElementNode;
+import by.bsuir.pogen.template.JavaClassTemplate;
 import by.bsuir.pogen.utils.LocatorBuilder;
 import by.bsuir.pogen.utils.WebDriverHelper;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -33,6 +34,7 @@ import static by.bsuir.pogen.constants.Constants.GENERATION_IN_PROGRESS;
 public class GeneratorForm extends JFrame {
     static Logger LOG = LoggerFactory.getLogger(GeneratorForm.class.getName());
     private LocatorBuilder locatorBuilder = new LocatorBuilder();
+    private ArrayList listOfPrepearedElements = new ArrayList<WebElement>();
 
     public JPanel mainPanel;
     private JTree trWebElements;
@@ -69,6 +71,9 @@ public class GeneratorForm extends JFrame {
     private JTextField tbClassName;
     private JButton btnGenerateClassNameLocator;
     private JLabel lblLocatorActions;
+    private JButton btnGenerateClass;
+    private JCheckBox chbGenerateMethods;
+    private JComboBox cbProgrammingLanguage;
     private RemoteWebDriver webDriver;
     private WebElementNode htmlTree;
     private WebElement selectedElement;
@@ -82,6 +87,7 @@ public class GeneratorForm extends JFrame {
         htmlTree = new WebElementNode(new WebElement(doc.body()));
         this.trWebElements.setModel(new DefaultTreeModel(htmlTree));
         this.cbPrefferedLocator.setModel(new DefaultComboBoxModel(Constants.LocatorType.values()));
+        this.cbProgrammingLanguage.setModel(new DefaultComboBoxModel(Constants.ProgrammingLanguage.values()));
         this.trWebElements.setSelectionRow(0);
         this.trWebElements.setSelectionPath(trWebElements.getSelectionPath());
 
@@ -294,8 +300,22 @@ public class GeneratorForm extends JFrame {
                 if (selectedElement != null) {
                     selectedElement.setForGeneration(true);
                     trWebElements.repaint();
+
+                    selectedElement.setNameLocator(tbName.getText());
+                    selectedElement.setTagNameLocator(tbTagName.getText());
+                    selectedElement.setIdLocator(tbId.getText());
+                    selectedElement.setClassNameLocator(tbClassName.getText());
+                    selectedElement.setLinkTextLocator(tbLinkText.getText());
+                    selectedElement.setCssLocator(tbCss.getText());
+                    selectedElement.setXpathLocator(tbXpath.getText());
+                    selectedElement.setPreferredLocatorType((Constants.LocatorType) cbPrefferedLocator.getSelectedItem());
+                    trWebElements.repaint();
+
+                    validateSelectedElement();
                     lblReadyForGeneration.setText("Ready");
-                    JOptionPane.showMessageDialog(null, "Element will be included into generated code.");
+                    if (listOfPrepearedElements.indexOf(selectedElement) == -1)
+                        listOfPrepearedElements.add(selectedElement);
+                    JOptionPane.showMessageDialog(null, "Element will be included into generated code with preferred locator.");
 
                 }
             }
@@ -307,6 +327,8 @@ public class GeneratorForm extends JFrame {
                     selectedElement.setForGeneration(false);
                     trWebElements.repaint();
                     lblReadyForGeneration.setText("Unready");
+                    if (listOfPrepearedElements.indexOf(selectedElement) != -1)
+                        listOfPrepearedElements.remove(selectedElement);
                     JOptionPane.showMessageDialog(null, "Element will not be included into generated code.");
 
                 }
@@ -348,102 +370,7 @@ public class GeneratorForm extends JFrame {
         btnValidatePrefferedLocator.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedElement != null) {
-                    Constants.LocatorType type = (Constants.LocatorType) cbPrefferedLocator.getSelectedItem();
-                    boolean isHandled = false;
-                    try {
-                        java.util.List<org.openqa.selenium.WebElement> elements = new ArrayList<org.openqa.selenium.WebElement>();
-                        String currentLocatorValue = new String();
-                        switch (type) {
-                            case ID: {
-                                currentLocatorValue = tbId.getText();
-                                if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
-                                    JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
-                                } else {
-                                    elements = webDriver.findElements(By.id(currentLocatorValue));
-                                    isHandled = true;
-                                }
-                                break;
-                            }
-                            case NAME: {
-                                currentLocatorValue = tbName.getText();
-                                if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
-                                    JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
-                                } else {
-                                    elements = webDriver.findElements(By.name(currentLocatorValue));
-                                    isHandled = true;
-                                }
-                                break;
-                            }
-                            case CLASS_NAME: {
-                                currentLocatorValue = tbClassName.getText();
-                                if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
-                                    JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
-                                } else {
-                                    elements = webDriver.findElements(By.className(currentLocatorValue));
-                                    isHandled = true;
-                                }
-                                break;
-                            }
-                            case LINK_TEXT: {
-                                currentLocatorValue = tbLinkText.getText();
-                                if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
-                                    JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
-                                } else {
-                                    elements = webDriver.findElements(By.linkText(currentLocatorValue));
-                                    isHandled = true;
-                                }
-                                break;
-                            }
-                            case TAG_NAME: {
-                                currentLocatorValue = tbTagName.getText();
-                                if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
-                                    JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
-                                } else {
-                                    elements = webDriver.findElements(By.tagName(currentLocatorValue));
-                                    isHandled = true;
-                                }
-                                break;
-                            }
-                            case CSS: {
-                                currentLocatorValue = tbCss.getText();
-                                if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
-                                    JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
-                                } else {
-                                    elements = webDriver.findElements(By.cssSelector(currentLocatorValue));
-                                    isHandled = true;
-                                }
-                                break;
-                            }
-                            case XPATH: {
-                                currentLocatorValue = tbXpath.getText();
-                                if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
-                                    JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
-                                } else {
-                                    elements = webDriver.findElements(By.xpath(currentLocatorValue));
-                                    isHandled = true;
-                                }
-                                break;
-                            }
-                        }
-                        if (isHandled) {
-                            if (elements.size() > 1) {
-                                JOptionPane.showMessageDialog(null, String.format("There are %1d elements found using %2s: n\'%3s'", elements.size(), type.toString(), currentLocatorValue));
-                            }
-                            if (elements.size() == 1) {
-                                JOptionPane.showMessageDialog(null, String.format("Element was found using %1s: \n'%2s'", type.toString(), currentLocatorValue));
-                            }
-                            if (elements.size() == 0) {
-                                JOptionPane.showMessageDialog(null, String.format("There are no elements with %1s: \n'%2s'", type.toString(), currentLocatorValue));
-                            }
-                        }
-                    } catch (Exception ex) {
-                        int index = ex.getMessage().indexOf("\n");
-                        index = ex.getMessage().indexOf("\n", index + 1);
-                        JOptionPane.showMessageDialog(null, "Selenium has thrown Exception during find element by current preffered locator: \n"
-                                + ex.getMessage().substring(0, index));
-                    }
-                }
+                validateSelectedElement();
             }
         });
 
@@ -639,8 +566,129 @@ public class GeneratorForm extends JFrame {
                 }
             }
         });
+        btnGenerateClass.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switch ((Constants.ProgrammingLanguage) cbProgrammingLanguage.getSelectedItem()) {
+                    case JAVA: {
+                        JavaClassTemplate javaClassTemplate = new JavaClassTemplate(webDriver.getTitle()
+                                .toLowerCase()
+                                .replaceAll(" ", "_")
+                                .replaceAll("-", "")
+                                .replaceAll("__", "_"),
+                                listOfPrepearedElements, chbGenerateMethods.isSelected());
+                        break;
+                    }
+                    case C_SHARP: {
+
+                        break;
+                    }
+                }
+            }
+        });
     }
 
+    private void validateSelectedElement() {
+        if (selectedElement != null) {
+            Constants.LocatorType type = (Constants.LocatorType) cbPrefferedLocator.getSelectedItem();
+            boolean isHandled = false;
+            try {
+                java.util.List<org.openqa.selenium.WebElement> elements = new ArrayList<org.openqa.selenium.WebElement>();
+                String currentLocatorValue = new String();
+                switch (type) {
+                    case ID: {
+                        currentLocatorValue = tbId.getText();
+                        if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
+                            JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
+                        } else {
+                            elements = webDriver.findElements(By.id(currentLocatorValue));
+                            isHandled = true;
+                        }
+                        break;
+                    }
+                    case NAME: {
+                        currentLocatorValue = tbName.getText();
+                        if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
+                            JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
+                        } else {
+                            elements = webDriver.findElements(By.name(currentLocatorValue));
+                            isHandled = true;
+                        }
+                        break;
+                    }
+                    case CLASS_NAME: {
+                        currentLocatorValue = tbClassName.getText();
+                        if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
+                            JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
+                        } else {
+                            elements = webDriver.findElements(By.className(currentLocatorValue));
+                            isHandled = true;
+                        }
+                        break;
+                    }
+                    case LINK_TEXT: {
+                        currentLocatorValue = tbLinkText.getText();
+                        if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
+                            JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
+                        } else {
+                            elements = webDriver.findElements(By.linkText(currentLocatorValue));
+                            isHandled = true;
+                        }
+                        break;
+                    }
+                    case TAG_NAME: {
+                        currentLocatorValue = tbTagName.getText();
+                        if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
+                            JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
+                        } else {
+                            elements = webDriver.findElements(By.tagName(currentLocatorValue));
+                            isHandled = true;
+                        }
+                        break;
+                    }
+                    case CSS: {
+                        currentLocatorValue = tbCss.getText();
+                        if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
+                            JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
+                        } else {
+                            elements = webDriver.findElements(By.cssSelector(currentLocatorValue));
+                            isHandled = true;
+                        }
+                        break;
+                    }
+                    case XPATH: {
+                        currentLocatorValue = tbXpath.getText();
+                        if (currentLocatorValue.equals("") || currentLocatorValue.equals(" ")) {
+                            JOptionPane.showMessageDialog(null, String.format("%s is empty.", type.toString()));
+                        } else {
+                            elements = webDriver.findElements(By.xpath(currentLocatorValue));
+                            isHandled = true;
+                        }
+                        break;
+                    }
+                }
+                if (isHandled) {
+                    if (elements.size() > 1) {
+                        selectedElement.setMultipleElements(true);
+                        JOptionPane.showMessageDialog(null, String.format("There are %1d elements found using %2s: n\'%3s'", elements.size(), type.toString(), currentLocatorValue));
+                    }
+                    if (elements.size() == 1) {
+                        selectedElement.setMultipleElements(false);
+                        JOptionPane.showMessageDialog(null, String.format("1 Element was found using %1s: \n'%2s'", type.toString(), currentLocatorValue));
+                    }
+                    if (elements.size() == 0) {
+                        selectedElement.setMultipleElements(false);
+                        JOptionPane.showMessageDialog(null, String.format("There are no elements with %1s: \n'%2s'", type.toString(), currentLocatorValue));
+                    }
+                }
+            } catch (Exception ex) {
+                int index = ex.getMessage().indexOf("\n");
+                index = ex.getMessage().indexOf("\n", index + 1);
+                JOptionPane.showMessageDialog(null, "Selenium has thrown Exception during find element by current preffered locator: \n"
+                        + ex.getMessage().substring(0, index));
+            }
+        }
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
@@ -681,30 +729,46 @@ public class GeneratorForm extends JFrame {
         label1.setText("Web Elements (right click to set ready):");
         splitPane2.setLeftComponent(label1);
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setLayout(new GridLayoutManager(4, 2, new Insets(0, 0, 0, 0), -1, -1));
         splitPane2.setRightComponent(panel1);
         btnGenerateAllLocators = new JButton();
         btnGenerateAllLocators.setFont(new Font("Segoe UI Light", btnGenerateAllLocators.getFont().getStyle(), 18));
         btnGenerateAllLocators.setText("Generate Locators For Elements");
-        panel1.add(btnGenerateAllLocators, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        panel1.add(btnGenerateAllLocators, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
-        panel1.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel1.add(scrollPane1, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         trWebElements = new JTree();
         trWebElements.setFont(new Font("Segoe UI Light", trWebElements.getFont().getStyle(), 14));
         trWebElements.putClientProperty("JTree.lineStyle", "");
         scrollPane1.setViewportView(trWebElements);
+        btnGenerateClass = new JButton();
+        btnGenerateClass.setFont(new Font("Segoe UI Light", btnGenerateClass.getFont().getStyle(), 18));
+        btnGenerateClass.setText("Generate Class for \"Ready\" Elements");
+        panel1.add(btnGenerateClass, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        chbGenerateMethods = new JCheckBox();
+        chbGenerateMethods.setFont(new Font("Segoe UI Light", chbGenerateMethods.getFont().getStyle(), 18));
+        chbGenerateMethods.setText("Generate Methods");
+        panel1.add(chbGenerateMethods, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        cbProgrammingLanguage = new JComboBox();
+        cbProgrammingLanguage.setFont(new Font("Segoe UI", cbProgrammingLanguage.getFont().getStyle(), 14));
+        panel1.add(cbProgrammingLanguage, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        final JLabel label2 = new JLabel();
+        label2.setFont(new Font("Segoe UI Light", label2.getFont().getStyle(), 18));
+        label2.setHorizontalAlignment(4);
+        label2.setText("Programming Language for Class:");
+        panel1.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         final JSplitPane splitPane3 = new JSplitPane();
         splitPane3.setDividerSize(2);
         splitPane3.setEnabled(false);
         splitPane3.setOrientation(0);
         splitPane1.setRightComponent(splitPane3);
         splitPane3.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), null));
-        final JLabel label2 = new JLabel();
-        label2.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        label2.setText("Web Element Properties:");
-        splitPane3.setLeftComponent(label2);
+        final JLabel label3 = new JLabel();
+        label3.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        label3.setText("Web Element Properties:");
+        splitPane3.setLeftComponent(label3);
         pnlWebElementProps = new JPanel();
-        pnlWebElementProps.setLayout(new GridLayoutManager(16, 7, new Insets(0, 0, 0, 0), -1, -1));
+        pnlWebElementProps.setLayout(new GridLayoutManager(15, 7, new Insets(0, 0, 0, 0), -1, -1));
         splitPane3.setRightComponent(pnlWebElementProps);
         tbElementName = new JTextField();
         tbElementName.setFont(new Font("Segoe UI", tbElementName.getFont().getStyle(), 14));
@@ -715,10 +779,10 @@ public class GeneratorForm extends JFrame {
         tbLinkText = new JTextField();
         tbLinkText.setFont(new Font("Segoe UI", tbLinkText.getFont().getStyle(), 14));
         pnlWebElementProps.add(tbLinkText, new GridConstraints(9, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
-        final JLabel label3 = new JLabel();
-        label3.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        label3.setText("Locators (right click to generate):");
-        pnlWebElementProps.add(label3, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(258, 25), null, 0, false));
+        final JLabel label4 = new JLabel();
+        label4.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        label4.setText("Locators (right click to generate):");
+        pnlWebElementProps.add(label4, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(258, 25), null, 0, false));
         tbCss = new JTextField();
         tbCss.setFont(new Font("Segoe UI", tbCss.getFont().getStyle(), 14));
         pnlWebElementProps.add(tbCss, new GridConstraints(10, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
@@ -738,50 +802,50 @@ public class GeneratorForm extends JFrame {
         btnSaveXpathLocator.setFont(new Font("Segoe UI Light", btnSaveXpathLocator.getFont().getStyle(), 18));
         btnSaveXpathLocator.setText("Save");
         pnlWebElementProps.add(btnSaveXpathLocator, new GridConstraints(11, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
-        final JLabel label4 = new JLabel();
-        label4.setFont(new Font("Segoe UI Semibold", label4.getFont().getStyle(), 18));
-        label4.setHorizontalAlignment(4);
-        label4.setText("Tag Name:");
-        pnlWebElementProps.add(label4, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         final JLabel label5 = new JLabel();
         label5.setFont(new Font("Segoe UI Semibold", label5.getFont().getStyle(), 18));
         label5.setHorizontalAlignment(4);
-        label5.setText("Link Text:");
-        pnlWebElementProps.add(label5, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
+        label5.setText("Tag Name:");
+        pnlWebElementProps.add(label5, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         final JLabel label6 = new JLabel();
         label6.setFont(new Font("Segoe UI Semibold", label6.getFont().getStyle(), 18));
         label6.setHorizontalAlignment(4);
-        label6.setText("CSS:");
-        pnlWebElementProps.add(label6, new GridConstraints(10, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
+        label6.setText("Link Text:");
+        pnlWebElementProps.add(label6, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         final JLabel label7 = new JLabel();
         label7.setFont(new Font("Segoe UI Semibold", label7.getFont().getStyle(), 18));
         label7.setHorizontalAlignment(4);
-        label7.setText("XPath:");
-        pnlWebElementProps.add(label7, new GridConstraints(11, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
+        label7.setText("CSS:");
+        pnlWebElementProps.add(label7, new GridConstraints(10, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         final JLabel label8 = new JLabel();
         label8.setFont(new Font("Segoe UI Semibold", label8.getFont().getStyle(), 18));
         label8.setHorizontalAlignment(4);
-        label8.setText("Element Name:");
-        pnlWebElementProps.add(label8, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
-        cbPrefferedLocator = new JComboBox();
-        cbPrefferedLocator.setFont(new Font("Segoe UI", cbPrefferedLocator.getFont().getStyle(), 14));
-        pnlWebElementProps.add(cbPrefferedLocator, new GridConstraints(13, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        label8.setText("XPath:");
+        pnlWebElementProps.add(label8, new GridConstraints(11, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         final JLabel label9 = new JLabel();
         label9.setFont(new Font("Segoe UI Semibold", label9.getFont().getStyle(), 18));
         label9.setHorizontalAlignment(4);
-        label9.setText("Preferred Locator:");
-        pnlWebElementProps.add(label9, new GridConstraints(13, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 53), null, 0, false));
+        label9.setText("Element Name:");
+        pnlWebElementProps.add(label9, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
+        cbPrefferedLocator = new JComboBox();
+        cbPrefferedLocator.setFont(new Font("Segoe UI", cbPrefferedLocator.getFont().getStyle(), 14));
+        pnlWebElementProps.add(cbPrefferedLocator, new GridConstraints(13, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        final JLabel label10 = new JLabel();
+        label10.setFont(new Font("Segoe UI Semibold", label10.getFont().getStyle(), 18));
+        label10.setHorizontalAlignment(4);
+        label10.setText("Preferred Locator:");
+        pnlWebElementProps.add(label10, new GridConstraints(13, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 53), null, 0, false));
         lblReadyForGeneration = new JLabel();
         lblReadyForGeneration.setFont(new Font("Segoe UI", Font.BOLD, 20));
         lblReadyForGeneration.setHorizontalAlignment(2);
         lblReadyForGeneration.setHorizontalTextPosition(0);
         lblReadyForGeneration.setText("STATUS");
         pnlWebElementProps.add(lblReadyForGeneration, new GridConstraints(1, 1, 2, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(258, 25), null, 0, false));
-        final JLabel label10 = new JLabel();
-        label10.setFont(new Font("Segoe UI Semibold", label10.getFont().getStyle(), 18));
-        label10.setHorizontalAlignment(4);
-        label10.setText("Ready For Generation:");
-        pnlWebElementProps.add(label10, new GridConstraints(1, 0, 2, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
+        final JLabel label11 = new JLabel();
+        label11.setFont(new Font("Segoe UI Semibold", label11.getFont().getStyle(), 18));
+        label11.setHorizontalAlignment(4);
+        label11.setText("Ready For Generation:");
+        pnlWebElementProps.add(label11, new GridConstraints(1, 0, 2, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         lblLocatorActions = new JLabel();
         lblLocatorActions.setFont(new Font("Segoe UI", Font.BOLD, 18));
         lblLocatorActions.setText("Locator Actions:");
@@ -805,19 +869,19 @@ public class GeneratorForm extends JFrame {
         btnGenerateLocatorsForElement = new JButton();
         btnGenerateLocatorsForElement.setFont(new Font("Segoe UI Light", btnGenerateLocatorsForElement.getFont().getStyle(), 18));
         btnGenerateLocatorsForElement.setText("Generate Locators");
-        pnlWebElementProps.add(btnGenerateLocatorsForElement, new GridConstraints(15, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        pnlWebElementProps.add(btnGenerateLocatorsForElement, new GridConstraints(14, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
         btnValidatePrefferedLocator = new JButton();
         btnValidatePrefferedLocator.setFont(new Font("Segoe UI Light", btnValidatePrefferedLocator.getFont().getStyle(), 18));
         btnValidatePrefferedLocator.setText("Validate Preferred Locator");
-        pnlWebElementProps.add(btnValidatePrefferedLocator, new GridConstraints(15, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        pnlWebElementProps.add(btnValidatePrefferedLocator, new GridConstraints(14, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
         tbXpath = new JTextField();
         tbXpath.setFont(new Font("Segoe UI", tbXpath.getFont().getStyle(), 14));
         pnlWebElementProps.add(tbXpath, new GridConstraints(11, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
-        final JLabel label11 = new JLabel();
-        label11.setFont(new Font("Segoe UI Semibold", label11.getFont().getStyle(), 18));
-        label11.setHorizontalAlignment(4);
-        label11.setText("Name:");
-        pnlWebElementProps.add(label11, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
+        final JLabel label12 = new JLabel();
+        label12.setFont(new Font("Segoe UI Semibold", label12.getFont().getStyle(), 18));
+        label12.setHorizontalAlignment(4);
+        label12.setText("Name:");
+        pnlWebElementProps.add(label12, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         tbName = new JTextField();
         tbName.setFont(new Font("Segoe UI", tbName.getFont().getStyle(), 14));
         pnlWebElementProps.add(tbName, new GridConstraints(5, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
@@ -829,11 +893,11 @@ public class GeneratorForm extends JFrame {
         btnSaveNameLocator.setFont(new Font("Segoe UI Light", btnSaveNameLocator.getFont().getStyle(), 18));
         btnSaveNameLocator.setText("Save");
         pnlWebElementProps.add(btnSaveNameLocator, new GridConstraints(5, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, 30), new Dimension(-1, 30), null, 0, false));
-        final JLabel label12 = new JLabel();
-        label12.setFont(new Font("Segoe UI Semibold", label12.getFont().getStyle(), 18));
-        label12.setHorizontalAlignment(4);
-        label12.setText("Id:");
-        pnlWebElementProps.add(label12, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
+        final JLabel label13 = new JLabel();
+        label13.setFont(new Font("Segoe UI Semibold", label13.getFont().getStyle(), 18));
+        label13.setHorizontalAlignment(4);
+        label13.setText("Id:");
+        pnlWebElementProps.add(label13, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         tbId = new JTextField();
         tbId.setFont(new Font("Segoe UI", tbId.getFont().getStyle(), 14));
         pnlWebElementProps.add(tbId, new GridConstraints(6, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
@@ -841,11 +905,11 @@ public class GeneratorForm extends JFrame {
         btnGenerateId.setFont(new Font("Segoe UI Light", btnGenerateId.getFont().getStyle(), 18));
         btnGenerateId.setText("Generate");
         pnlWebElementProps.add(btnGenerateId, new GridConstraints(6, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
-        final JLabel label13 = new JLabel();
-        label13.setFont(new Font("Segoe UI Semibold", label13.getFont().getStyle(), 18));
-        label13.setHorizontalAlignment(4);
-        label13.setText("Class Name:");
-        pnlWebElementProps.add(label13, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
+        final JLabel label14 = new JLabel();
+        label14.setFont(new Font("Segoe UI Semibold", label14.getFont().getStyle(), 18));
+        label14.setHorizontalAlignment(4);
+        label14.setText("Class Name:");
+        pnlWebElementProps.add(label14, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(213, 25), null, 0, false));
         tbClassName = new JTextField();
         tbClassName.setFont(new Font("Segoe UI", tbClassName.getFont().getStyle(), 14));
         pnlWebElementProps.add(tbClassName, new GridConstraints(7, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
@@ -868,24 +932,25 @@ public class GeneratorForm extends JFrame {
         btnShowOnPage = new JButton();
         btnShowOnPage.setFont(new Font("Segoe UI Light", btnShowOnPage.getFont().getStyle(), 18));
         btnShowOnPage.setText("Highlight On Page");
-        pnlWebElementProps.add(btnShowOnPage, new GridConstraints(15, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        pnlWebElementProps.add(btnShowOnPage, new GridConstraints(14, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
         btnSaveAllLocators = new JButton();
         btnSaveAllLocators.setFont(new Font("Segoe UI Light", Font.BOLD, 18));
         btnSaveAllLocators.setText("Save");
-        pnlWebElementProps.add(btnSaveAllLocators, new GridConstraints(15, 3, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        pnlWebElementProps.add(btnSaveAllLocators, new GridConstraints(14, 3, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
         btnSavePrefferedLocator = new JButton();
         btnSavePrefferedLocator.setFont(new Font("Segoe UI Light", btnSavePrefferedLocator.getFont().getStyle(), 18));
         btnSavePrefferedLocator.setText("Save");
         pnlWebElementProps.add(btnSavePrefferedLocator, new GridConstraints(13, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
-        label4.setLabelFor(tbTagName);
-        label5.setLabelFor(tbLinkText);
-        label6.setLabelFor(tbCss);
-        label7.setLabelFor(tbXpath);
-        label8.setLabelFor(tbElementName);
-        label10.setLabelFor(tbElementName);
-        label11.setLabelFor(tbName);
+        label2.setLabelFor(tbElementName);
+        label5.setLabelFor(tbTagName);
+        label6.setLabelFor(tbLinkText);
+        label7.setLabelFor(tbCss);
+        label8.setLabelFor(tbXpath);
+        label9.setLabelFor(tbElementName);
+        label11.setLabelFor(tbElementName);
         label12.setLabelFor(tbName);
         label13.setLabelFor(tbName);
+        label14.setLabelFor(tbName);
     }
 
     /**

@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1650" height="705"/>
+      <xy x="20" y="20" width="1695" height="705"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -42,7 +42,7 @@
                   <text value="Web Elements (right click to set ready):"/>
                 </properties>
               </component>
-              <grid id="9fe02" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="9fe02" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <splitpane position="right"/>
@@ -52,7 +52,7 @@
                 <children>
                   <component id="8120c" class="javax.swing.JButton" binding="btnGenerateAllLocators">
                     <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -64,7 +64,7 @@
                   </component>
                   <scrollpane id="b4741">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
                     <border type="none"/>
@@ -80,6 +80,51 @@
                       </component>
                     </children>
                   </scrollpane>
+                  <component id="eecec" class="javax.swing.JButton" binding="btnGenerateClass">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate Class for &quot;Ready&quot; Elements"/>
+                    </properties>
+                  </component>
+                  <component id="ee1be" class="javax.swing.JCheckBox" binding="chbGenerateMethods">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate Methods"/>
+                    </properties>
+                  </component>
+                  <component id="e0251" class="javax.swing.JComboBox" binding="cbProgrammingLanguage">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="b004d" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="5821a"/>
+                      <text value="Programming Language for Class:"/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
             </children>
@@ -104,7 +149,7 @@
                   <text value="Web Element Properties:"/>
                 </properties>
               </component>
-              <grid id="696ec" binding="pnlWebElementProps" layout-manager="GridLayoutManager" row-count="16" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="696ec" binding="pnlWebElementProps" layout-manager="GridLayoutManager" row-count="15" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <splitpane position="right"/>
@@ -388,7 +433,7 @@
                   </component>
                   <component id="a1e67" class="javax.swing.JButton" binding="btnGenerateLocatorsForElement">
                     <constraints>
-                      <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -400,7 +445,7 @@
                   </component>
                   <component id="da01b" class="javax.swing.JButton" binding="btnValidatePrefferedLocator">
                     <constraints>
-                      <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -579,7 +624,7 @@
                   </component>
                   <component id="389cb" class="javax.swing.JButton" binding="btnShowOnPage">
                     <constraints>
-                      <grid row="15" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -591,7 +636,7 @@
                   </component>
                   <component id="5d486" class="javax.swing.JButton" binding="btnSaveAllLocators">
                     <constraints>
-                      <grid row="15" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="14" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>

@@ -2,6 +2,8 @@ package by.bsuir.pogen.models;
 import by.bsuir.pogen.constants.Constants;
 import org.jsoup.nodes.Element;
 
+import static by.bsuir.pogen.constants.Constants.LocatorType.XPATH;
+
 /**
  * Created by alexei.khilchuk on 31/03/2017.
  */
@@ -21,11 +23,14 @@ public class WebElement {
     private Constants.LocatorType preferredLocatorType;
     private Boolean isForGeneration;
 
+    private Boolean isMultipleElements;
+
     public WebElement(Element elem){
         this.element = elem;
         this.elementName = generateElementName();
-        this.preferredLocatorType = Constants.LocatorType.XPATH;
+        this.preferredLocatorType = XPATH;
         this.isForGeneration = false;
+        this.isMultipleElements = false;
     }
 
     public String getElementName() {
@@ -112,6 +117,58 @@ public class WebElement {
         this.isForGeneration = forGeneration;
     }
 
+    public Boolean getMultipleElements() {
+        return isMultipleElements;
+    }
+
+    public void setMultipleElements(Boolean multipleElements) {
+        isMultipleElements = multipleElements;
+    }
+
+    public String getLocatorValueByType(Constants.LocatorType type){
+        String locatorValue;
+        switch (type){
+            case XPATH:{
+                locatorValue = getXpathLocator();
+                break;
+            }
+            case CSS:{
+                locatorValue = getCssLocator();
+                break;
+            }
+            case TAG_NAME:{
+                locatorValue = getTagNameLocator();
+                break;
+            }
+            case LINK_TEXT:{
+                locatorValue = getLinkTextLocator();
+                break;
+            }
+            case CLASS_NAME:{
+                locatorValue = getClassNameLocator();
+                break;
+            }
+            case NAME:{
+                locatorValue = getNameLocator();
+                break;
+            }
+            case ID:{
+                locatorValue = getIdLocator();
+                break;
+            }
+            default:{
+                locatorValue = getXpathLocator();
+                break;
+            }
+        }
+
+        return locatorValue;
+    }
+
+    public String getPreferredLocatorValue(){
+        return getLocatorValueByType(getPreferredLocatorType());
+    }
+
     private String generateElementName(){
         String resultName = this.element.tagName();
 
@@ -127,7 +184,6 @@ public class WebElement {
         else if (!this.element.attr("href").equals("")){
             resultName += ("_" + this.element.attr("href"));
         }
-
 
         resultName = resultName.replaceAll(" ", "_");
         resultName = resultName.replaceAll("-", "_");

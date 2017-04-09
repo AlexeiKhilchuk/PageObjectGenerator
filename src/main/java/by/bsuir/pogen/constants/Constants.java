@@ -4,7 +4,21 @@ package by.bsuir.pogen.constants;
  * Created by Alexei Khilchuk on 13.02.2017.
  */
 public class Constants {
-    public enum ProgrammingLanguage {JAVA, C_SHARP}
+    public enum ProgrammingLanguage {
+        JAVA("Java"),
+        C_SHARP("C#");
+
+        private final String name;
+
+        private ProgrammingLanguage(String s) {
+            name = s;
+        }
+
+        public String toString() {
+            return this.name;
+        }
+    }
+
     public enum LoadStatus {
         LOADED("LOADED"),
         NOT_LOADED("NOT LOADED");
@@ -34,6 +48,23 @@ public class Constants {
         private final String name;
 
         private LocatorType(String s) {
+            name = s;
+        }
+
+        public String toString() {
+            return this.name;
+        }
+    }
+
+    public enum TagsForMethodsGeneration {
+        INPUT("input"),
+        SELECT("select"),
+        BUTTON("button"),
+        LABEL("label");
+
+        private final String name;
+
+        private TagsForMethodsGeneration(String s) {
             name = s;
         }
 

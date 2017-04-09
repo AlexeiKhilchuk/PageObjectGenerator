@@ -8,22 +8,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
  
-public class @Raw(@Model.PageObject.PageObjectName) extends MyBasePage {
-    @foreach (var element in @Model.PageObject.Items ) 
-    {
-        if(element.ReturnsCollection) 
-        {        
-        <text>
-            @@FindBy(how=How.@Raw(@JavaHow(@element.How)), using="@Raw(@QuoteLocator(@element.Locator))")
-            private List<WebElement> @Raw(@element.Name);
-        </text>
-        }
-        else 
-        {
-        <text>
-            @@FindBy(how=How.@Raw(@JavaHow(@element.How)), using="@Raw(@QuoteLocator(@element.Locator))")
-            private WebElement @Raw(@element.Name);
-        </text>
-        }
-    }
+public class ~pageName~Page extends BasePage {
+    //Object Declarations:
+~for elementDeclaration in elementDeclarations:
+~elementDeclaration~
+:~
+
+    //Action methods for declared objects:
+~for method in methods:
+~method~
+:~
 }
