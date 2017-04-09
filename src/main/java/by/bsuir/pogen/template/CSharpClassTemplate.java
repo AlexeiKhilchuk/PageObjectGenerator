@@ -9,16 +9,16 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by alexei.khilchuk on 01/04/2017.
+ * Created by alexei.khilchuk on 09/04/2017.
  */
-public class JavaClassTemplate extends Template {
+public class CSharpClassTemplate extends Template {
 
     private static Collection<String> elementCollection = new ArrayList<String>();
     private static Collection<String> methodsCollection = new ArrayList<String>();
 
-    public JavaClassTemplate(String name, List<WebElement> elements, boolean isGenerateMethods){
-        ObjectGenerator objectGenerator = new ObjectGenerator(Constants.ProgrammingLanguage.JAVA);
-        MethodsGenerator methodsGenerator = new MethodsGenerator(Constants.ProgrammingLanguage.JAVA);
+    public CSharpClassTemplate(String name, List<WebElement> elements, boolean isGenerateMethods){
+        ObjectGenerator objectGenerator = new ObjectGenerator(Constants.ProgrammingLanguage.C_SHARP);
+        MethodsGenerator methodsGenerator = new MethodsGenerator(Constants.ProgrammingLanguage.C_SHARP);
         for (WebElement element : elements){
             elementCollection.add(objectGenerator.getObjectDeclaration(element));
             if (isGenerateMethods && !element.getMultipleElements()){
@@ -33,6 +33,6 @@ public class JavaClassTemplate extends Template {
 
     @Override
     protected String getFilePath() {
-        return "java_template.java";
+        return "csharp_template.cs";
     }
 }

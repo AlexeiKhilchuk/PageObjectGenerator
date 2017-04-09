@@ -54,7 +54,7 @@ public class MethodsGenerator {
             }
             case C_SHARP:{
                 sb.append(String.format("    public void Click_%s(){ \n", element.getElementName()));
-                sb.append(String.format("        %s.Click(); \n    }", element.getElementName()));
+                sb.append(String.format("            %s.Click(); \n        }", element.getElementName()));
                 break;
             }
         }
@@ -71,7 +71,7 @@ public class MethodsGenerator {
             }
             case C_SHARP:{
                 sb.append(String.format("    public void SetValue_%s(String value){ \n", element.getElementName()));
-                sb.append(String.format("        %s.SendKeys(value); \n    }", element.getElementName()));
+                sb.append(String.format("            %s.SendKeys(value); \n        }", element.getElementName()));
                 break;
             }
         }
@@ -88,7 +88,7 @@ public class MethodsGenerator {
             }
             case C_SHARP:{
                 sb.append(String.format("    public void Clear_%s(){ \n", element.getElementName()));
-                sb.append(String.format("        %s.Clear(); \n    }", element.getElementName()));
+                sb.append(String.format("            %s.Clear(); \n        }", element.getElementName()));
                 break;
             }
         }
@@ -100,12 +100,12 @@ public class MethodsGenerator {
         switch (currentLanguage){
             case JAVA:{
                 sb.append(String.format("    public String getText_%s(){ \n", element.getElementName()));
-                sb.append(String.format("        return %s.getText(); \n    }", element.getElementName()));
+                sb.append(String.format("            return %s.getText(); \n        }", element.getElementName()));
                 break;
             }
             case C_SHARP:{
                 sb.append(String.format("    public string GetText_%s(){ \n", element.getElementName()));
-                sb.append(String.format("        return %s.Text; \n    }", element.getElementName()));
+                sb.append(String.format("            return %s.Text; \n        }", element.getElementName()));
                 break;
             }
         }
@@ -126,11 +126,11 @@ public class MethodsGenerator {
             }
             case C_SHARP:{
                 sb.append(String.format("    public List<String> GetListValues_%s(){ \n", element.getElementName()));
-                sb.append(String.format("        List<string> values = new List<string>(); "));
-                sb.append(String.format("        foreach (var element in %s.FindElements(By.XPath(\"/li\"))){ \n", element.getElementName()));
-                sb.append(String.format("             values.Add(element.text); \n"));
-                sb.append(String.format("        }"));
-                sb.append(String.format("        return values \n    }", element.getElementName()));
+                sb.append(String.format("            List<string> values = new List<string>(); "));
+                sb.append(String.format("            foreach (var element in %s.FindElements(By.XPath(\"/li\"))){ \n", element.getElementName()));
+                sb.append(String.format("                 values.Add(element.text); \n"));
+                sb.append(String.format("            }"));
+                sb.append(String.format("            return values \n        }", element.getElementName()));
                 break;
             }
         }
@@ -148,8 +148,8 @@ public class MethodsGenerator {
             }
             case C_SHARP:{
                 sb.append(String.format("    public List<String> SelectOption_%s(int option){ \n", element.getElementName()));
-                sb.append(String.format("        List<RemoteWebElement> elements = %s.FindElements(By.XPath(\"/option\")); \n", element.getElementName()));
-                sb.append(String.format("        elements.Get(option).SetValue(true); \n    }"));
+                sb.append(String.format("            List<RemoteWebElement> elements = %s.FindElements(By.XPath(\"/option\")); \n", element.getElementName()));
+                sb.append(String.format("            elements.Get(option).SetValue(true); \n        }"));
                 break;
             }
         }

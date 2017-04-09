@@ -3,6 +3,7 @@ package by.bsuir.pogen.forms;
 import by.bsuir.pogen.constants.Constants;
 import by.bsuir.pogen.models.WebElement;
 import by.bsuir.pogen.models.WebElementNode;
+import by.bsuir.pogen.template.CSharpClassTemplate;
 import by.bsuir.pogen.template.JavaClassTemplate;
 import by.bsuir.pogen.utils.LocatorBuilder;
 import by.bsuir.pogen.utils.WebDriverHelper;
@@ -15,6 +16,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.watertemplate.Template;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -560,7 +562,32 @@ public class GeneratorForm extends JFrame {
                     if (e.getButton() == MouseEvent.BUTTON3) {
                         selectedElement.setForGeneration(!selectedElement.isForGeneration());
                         trWebElements.repaint();
-                        lblReadyForGeneration.setText(selectedElement.isForGeneration() ? "Ready" : "Unready");
+
+                        if (selectedElement.isForGeneration()) {
+                            selectedElement.setForGeneration(true);
+                            trWebElements.repaint();
+
+                            selectedElement.setNameLocator(tbName.getText());
+                            selectedElement.setTagNameLocator(tbTagName.getText());
+                            selectedElement.setIdLocator(tbId.getText());
+                            selectedElement.setClassNameLocator(tbClassName.getText());
+                            selectedElement.setLinkTextLocator(tbLinkText.getText());
+                            selectedElement.setCssLocator(tbCss.getText());
+                            selectedElement.setXpathLocator(tbXpath.getText());
+                            selectedElement.setPreferredLocatorType((Constants.LocatorType) cbPrefferedLocator.getSelectedItem());
+                            trWebElements.repaint();
+
+                            validateSelectedElement();
+                            lblReadyForGeneration.setText("Ready");
+                            if (listOfPrepearedElements.indexOf(selectedElement) == -1)
+                                listOfPrepearedElements.add(selectedElement);
+                        } else {
+                            lblReadyForGeneration.setText("Unready");
+                            if (listOfPrepearedElements.indexOf(selectedElement) != -1)
+                                listOfPrepearedElements.remove(selectedElement);
+                            JOptionPane.showMessageDialog(null, "Element will not be included into generated code.");
+
+                        }
 
                     }
                 }
@@ -569,20 +596,37 @@ public class GeneratorForm extends JFrame {
         btnGenerateClass.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switch ((Constants.ProgrammingLanguage) cbProgrammingLanguage.getSelectedItem()) {
+                String className = webDriver.getTitle()
+                        .toLowerCase()
+                        .replaceAll(" ", "_")
+                        .replaceAll("-", "")
+                        .replaceAll("__", "_");
+                Template classTemplate = null;
+                Constants.ProgrammingLanguage language = (Constants.ProgrammingLanguage) cbProgrammingLanguage.getSelectedItem();
+                switch (language) {
                     case JAVA: {
-                        JavaClassTemplate javaClassTemplate = new JavaClassTemplate(webDriver.getTitle()
-                                .toLowerCase()
-                                .replaceAll(" ", "_")
-                                .replaceAll("-", "")
-                                .replaceAll("__", "_"),
+                        classTemplate = new JavaClassTemplate(className,
                                 listOfPrepearedElements, chbGenerateMethods.isSelected());
                         break;
                     }
                     case C_SHARP: {
-
+                        classTemplate = new CSharpClassTemplate(className,
+                                listOfPrepearedElements, chbGenerateMethods.isSelected());
                         break;
                     }
+                }
+
+                if (classTemplate != null) {
+                    ClassEditorForm classEditorForm = new ClassEditorForm(classTemplate, language);
+                    classEditorForm.setContentPane(classEditorForm.mainPanel);
+                    classEditorForm.setSize(800, 600);
+                    classEditorForm.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    classEditorForm.setVisible(true);
+                    classEditorForm.setResizable(true);
+                    classEditorForm.setLocationRelativeTo(null);
+                    classEditorForm.pack();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Unable to generate class.");
                 }
             }
         });
@@ -670,7 +714,7 @@ public class GeneratorForm extends JFrame {
                 if (isHandled) {
                     if (elements.size() > 1) {
                         selectedElement.setMultipleElements(true);
-                        JOptionPane.showMessageDialog(null, String.format("There are %1d elements found using %2s: n\'%3s'", elements.size(), type.toString(), currentLocatorValue));
+                        JOptionPane.showMessageDialog(null, String.format("There are %1d elements found using %2s: \n'%3s'", elements.size(), type.toString(), currentLocatorValue));
                     }
                     if (elements.size() == 1) {
                         selectedElement.setMultipleElements(false);
