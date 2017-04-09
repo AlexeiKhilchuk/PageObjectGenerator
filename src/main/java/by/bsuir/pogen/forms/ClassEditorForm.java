@@ -48,7 +48,7 @@ public class ClassEditorForm extends JFrame {
         }
 
         final JFileChooser saveAsFileChooser = new JFileChooser();
-        saveAsFileChooser.setApproveButtonText("Save");
+        saveAsFileChooser.setApproveButtonText("Save Class");
         saveAsFileChooser.setFileFilter(extensionFilter);
         int actionDialog = saveAsFileChooser.showOpenDialog(this);
         if (actionDialog != JFileChooser.APPROVE_OPTION) {
