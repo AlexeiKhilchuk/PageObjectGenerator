@@ -798,33 +798,41 @@ public class GeneratorForm extends JFrame {
 
     private void saveElementTreeObject(WebElementNode node) {
         FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("Elements tree", "elm");
-        final JFileChooser saveAsFileChooser = new JFileChooser();
-        saveAsFileChooser.setApproveButtonText("Save");
+        final FileDialog saveAsFileChooser = new FileDialog(this, "Save Elements Tree", FileDialog.SAVE);
+        /*
+        saveAsFileChooser.setApproveButtonText("Save Class");
         saveAsFileChooser.setFileFilter(extensionFilter);
         int actionDialog = saveAsFileChooser.showOpenDialog(this);
         if (actionDialog != JFileChooser.APPROVE_OPTION) {
             return;
         }
-
-        File file = saveAsFileChooser.getSelectedFile();
-        if (!file.getName().endsWith("." + extensionFilter.getExtensions()[0])) {
-            file = new File(file.getAbsolutePath() + "." + extensionFilter.getExtensions()[0]);
-        }
-        FileOutputStream fout = null;
-        ObjectOutputStream oos = null;
-        try {
-            fout = new FileOutputStream(file, false);
-            oos = new ObjectOutputStream(fout);
-            oos.writeObject(node);
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } finally {
-            if (fout != null) {
-                try {
-                    fout.close();
-                    if (oos != null) oos.close();
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
+*/
+        saveAsFileChooser.setVisible(true);
+        String chosenDir = saveAsFileChooser.getDirectory();
+        String chosenFile = saveAsFileChooser.getFile();
+        saveAsFileChooser.dispose();
+        File file;
+        if (chosenDir != null && chosenFile != null) {
+            file = new File(chosenDir + chosenFile);
+            if (!file.getName().endsWith("." + extensionFilter.getExtensions()[0])) {
+                file = new File(file.getAbsolutePath() + "." + extensionFilter.getExtensions()[0]);
+            }
+            FileOutputStream fout = null;
+            ObjectOutputStream oos = null;
+            try {
+                fout = new FileOutputStream(file, false);
+                oos = new ObjectOutputStream(fout);
+                oos.writeObject(node);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            } finally {
+                if (fout != null) {
+                    try {
+                        fout.close();
+                        if (oos != null) oos.close();
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
                 }
             }
         }

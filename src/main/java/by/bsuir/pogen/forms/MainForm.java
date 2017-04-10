@@ -65,7 +65,7 @@ public class MainForm extends JFrame {
                     generatorForm.setSize(500, 400);
                     generatorForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     generatorForm.setVisible(true);
-                    generatorForm.setResizable(false);
+                    generatorForm.setResizable(true);
                     generatorForm.setLocationRelativeTo(null);
                     generatorForm.pack();
                 } else {

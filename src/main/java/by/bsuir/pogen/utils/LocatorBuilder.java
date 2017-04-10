@@ -18,7 +18,14 @@ public class LocatorBuilder {
 
 
     public String getCssLocator(WebElement element){
-        return element.getElement().cssSelector();
+        try {
+            return element.getElement().cssSelector();
+        }
+        catch (IllegalArgumentException ex){
+            LOG.info("There was an error during getting CSS Locator", ex);
+            return "";
+        }
+
     }
 
     public String getXpathLocator(WebElement element, RemoteWebDriver webDriver){
