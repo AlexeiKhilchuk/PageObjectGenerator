@@ -9,11 +9,9 @@ public class Constants {
         C_SHARP("C#");
 
         private final String name;
-
         private ProgrammingLanguage(String s) {
             name = s;
         }
-
         public String toString() {
             return this.name;
         }
@@ -24,11 +22,9 @@ public class Constants {
         NOT_LOADED("NOT LOADED");
 
         private final String name;
-
         private LoadStatus(String s) {
             name = s;
         }
-
         public String toString() {
             return this.name;
         }
@@ -46,11 +42,9 @@ public class Constants {
         XPATH("XPath locator");
 
         private final String name;
-
         private LocatorType(String s) {
             name = s;
         }
-
         public String toString() {
             return this.name;
         }
@@ -63,11 +57,9 @@ public class Constants {
         LABEL("label");
 
         private final String name;
-
         private TagsForMethodsGeneration(String s) {
             name = s;
         }
-
         public String toString() {
             return this.name;
         }
@@ -76,8 +68,6 @@ public class Constants {
     public static final String SCRIPT_GET_ELEMENT_BORDER =
         "var elem = arguments[0]; \n" +
         "if (elem.currentStyle) {\n" +
-        "    // Branch for IE 6,7,8. No idea how this works on IE9, but the script\n" +
-        "    // should take care of it.\n" +
         "    var style = elem.currentStyle;\n" +
         "    var border = style['borderTopWidth']\n" +
     "            + ' ' + style['borderTopStyle']\n" +
@@ -92,7 +82,6 @@ public class Constants {
     "            + ' ' + style['borderLeftStyle']\n" +
     "            + ' ' + style['borderLeftColor'];\n" +
         "} else if (window.getComputedStyle) {\n" +
-        "    // Branch for FF, Chrome, Opera\n" +
         "    var style = document.defaultView.getComputedStyle(elem);\n" +
         "    var border = style.getPropertyValue('border-top-width')\n" +
     "            + ' ' + style.getPropertyValue('border-top-style')\n" +

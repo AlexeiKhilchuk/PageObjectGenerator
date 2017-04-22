@@ -48,21 +48,14 @@ public class ClassEditorForm extends JFrame {
         }
 
         final FileDialog saveAsFileChooser = new FileDialog(this, "Save Generated class", FileDialog.SAVE);
-        /*
-        saveAsFileChooser.setApproveButtonText("Save Class");
-        saveAsFileChooser.setFileFilter(extensionFilter);
-        int actionDialog = saveAsFileChooser.showOpenDialog(this);
-        if (actionDialog != JFileChooser.APPROVE_OPTION) {
-            return;
-        }
-*/
+
         saveAsFileChooser.setVisible(true);
         String chosenDir = saveAsFileChooser.getDirectory();
         String chosenFile = saveAsFileChooser.getFile();
         saveAsFileChooser.dispose();
         File file;
         if (chosenDir != null && chosenFile != null) {
-            file = new File(chosenDir+chosenFile);
+            file = new File(chosenDir + chosenFile);
             if (!file.getName().endsWith("." + extensionFilter.getExtensions()[0])) {
                 file = new File(file.getAbsolutePath() + "." + extensionFilter.getExtensions()[0]);
             }
@@ -106,9 +99,11 @@ public class ClassEditorForm extends JFrame {
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        mainPanel.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         epCode = new JEditorPane();
         epCode.setFont(new Font("Courier New", epCode.getFont().getStyle(), 16));
-        mainPanel.add(epCode, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(800, 600), new Dimension(800, 600), null, 0, false));
+        scrollPane1.setViewportView(epCode);
         btnSave = new JButton();
         btnSave.setFont(new Font("Segoe UI Semibold", btnSave.getFont().getStyle(), 18));
         btnSave.setText("Save Class");

@@ -16,7 +16,6 @@ import java.util.Enumeration;
 public class LocatorBuilder {
     static Logger LOG = LoggerFactory.getLogger(LocatorBuilder.class.getName());
 
-
     public String getCssLocator(WebElement element){
         try {
             return element.getElement().cssSelector();
@@ -34,28 +33,28 @@ public class LocatorBuilder {
             String locator = (String) ((JavascriptExecutor) webDriver).executeScript(
                     "getXPath=function(node)" +
                             "{" +
-                            "if (node.id !== '')" +
-                            "{" +
-                            "return '//' + node.tagName.toLowerCase() + '[@id=\"' + node.id + '\"]'" +
-                            "}" +
-                            "if (node === document.body)" +
-                            "{" +
-                            "return node.tagName.toLowerCase()" +
-                            "}" +
-                            "var nodeCount = 0;" +
-                            "var childNodes = node.parentNode.childNodes;" +
-                            "for (var i=0; i<childNodes.length; i++)" +
-                            "{" +
-                            "var currentNode = childNodes[i];" +
-                            "if (currentNode === node)" +
-                            "{" +
-                            "return getXPath(node.parentNode) + '/' + node.tagName.toLowerCase() + '[' + (nodeCount+1) + ']'" +
-                            "}" +
-                            "if (currentNode.nodeType === 1 && currentNode.tagName.toLowerCase() === node.tagName.toLowerCase())" +
-                            "{" +
-                            "nodeCount++" +
-                            "}" +
-                            "}" +
+                                "if (node.id !== '')" +
+                                "{" +
+                                     "return '//' + node.tagName.toLowerCase() + '[@id=\"' + node.id + '\"]'" +
+                                "}" +
+                                "if (node === document.body)" +
+                                "{" +
+                                     "return node.tagName.toLowerCase()" +
+                                "}" +
+                                "var nodeCount = 0;" +
+                                "var childNodes = node.parentNode.childNodes;" +
+                                "for (var i=0; i<childNodes.length; i++)" +
+                                "{" +
+                                      "var currentNode = childNodes[i];" +
+                                      "if (currentNode === node)" +
+                                      "{" +
+                                            "return getXPath(node.parentNode) + '/' + node.tagName.toLowerCase() + '[' + (nodeCount+1) + ']'" +
+                                      "}" +
+                                      "if (currentNode.nodeType === 1 && currentNode.tagName.toLowerCase() === node.tagName.toLowerCase())" +
+                                      "{" +
+                                            "nodeCount++" +
+                                      "}" +
+                                "}" +
                             "};" +
                             "return getXPath(arguments[0]);", webDriver.findElement(By.cssSelector(element.getElement().cssSelector())));
 
