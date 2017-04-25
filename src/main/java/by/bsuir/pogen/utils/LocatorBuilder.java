@@ -2,9 +2,12 @@ package by.bsuir.pogen.utils;
 
 import by.bsuir.pogen.models.WebElement;
 import by.bsuir.pogen.models.WebElementNode;
+import org.jsoup.helper.StringUtil;
+import org.jsoup.nodes.Document;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +22,27 @@ public class LocatorBuilder {
 
     public String getCssLocator(WebElement element){
         try {
-            return element.getElement().cssSelector();
+            if(element.getElement().id().length() > 0) {
+                return "#" + element.getElement().id();
+            } else {
+                String tagName = element.getElement().tagName().replace(':', '|');
+                StringBuilder selector = new StringBuilder(tagName);
+                String classes = StringUtil.join(element.getElement().classNames(), ".");
+                if(classes.length() > 0) {
+                    selector.append('.').append(classes);
+                }
+
+                if(element.getElement().parent() != null && !(element.getElement().parent() instanceof Document)) {
+                    selector.insert(0, " > ");
+                    if(element.getElement().parent().select(selector.toString()).size() > 1) {
+                        selector.append(String.format(":nth-child(%d)", new Object[]{Integer.valueOf(element.getElement().elementSiblingIndex().intValue() + 1)}));
+                    }
+
+                    return element.getElement().parent().cssSelector() + selector.toString();
+                } else {
+                    return selector.toString();
+                }
+            }
         }
         catch (IllegalArgumentException ex){
             LOG.info("There was an error during getting CSS Locator", ex);
@@ -30,45 +53,45 @@ public class LocatorBuilder {
 
     public String getXpathLocator(WebElement element, RemoteWebDriver webDriver){
         LOG.info(String.format("Building XPath locator for '%s' element", element.getElementName()));
-        try {
-            String locator = (String) ((JavascriptExecutor) webDriver).executeScript(
-                    "getXPath=function(node)" +
-                            "{" +
-                            "if (node.id !== '')" +
-                            "{" +
-                            "return '//' + node.tagName.toLowerCase() + '[@id=\"' + node.id + '\"]'" +
-                            "}" +
-                            "if (node === document.body)" +
-                            "{" +
-                            "return node.tagName.toLowerCase()" +
-                            "}" +
-                            "var nodeCount = 0;" +
-                            "var childNodes = node.parentNode.childNodes;" +
-                            "for (var i=0; i<childNodes.length; i++)" +
-                            "{" +
-                            "var currentNode = childNodes[i];" +
-                            "if (currentNode === node)" +
-                            "{" +
-                            "return getXPath(node.parentNode) + '/' + node.tagName.toLowerCase() + '[' + (nodeCount+1) + ']'" +
-                            "}" +
-                            "if (currentNode.nodeType === 1 && currentNode.tagName.toLowerCase() === node.tagName.toLowerCase())" +
-                            "{" +
-                            "nodeCount++" +
-                            "}" +
-                            "}" +
-                            "};" +
-                            "return getXPath(arguments[0]);", webDriver.findElement(By.cssSelector(element.getElement().cssSelector())));
+        org.openqa.selenium.WebElement el = webDriver.findElement(By.cssSelector(element.getElement().cssSelector()));
 
-            if (!locator.substring(0, 2).equals("//")) {
-                locator = "//" + locator;
+        StringBuffer sb = new StringBuffer();
+        sb.append("    	function getPathTo(element) {\n");
+        sb.append("    	    if (element.id!=='')\n");
+        sb.append("    	        return 'id(\"'+element.id+'\")';\n");
+        sb.append("    	    if (element===document.body)\n");
+        sb.append("    	        return element.tagName.toLowerCase();\n");
+        sb.append("    	    var ix= 0;\n");
+        sb.append("    	    var siblings= element.parentNode.childNodes;\n");
+        sb.append("    	    for (var i= 0; i<siblings.length; i++) {\n");
+        sb.append("    	        var sibling= siblings[i];\n");
+        sb.append("    	        if (sibling===element){\n");
+        sb.append("    	            var attr = ''");
+        sb.append("                     +(element.hasAttribute('class')?'[contains(@class,\"'+element.getAttribute('class')+'\")]':'')");
+        sb.append("                     +(element.hasAttribute('name')?'[contains(@name,\"'+element.getAttribute('name')+'\")]':'');\n");
+        sb.append("    	            return getPathTo(element.parentNode)+'/'+element.tagName.toLowerCase()");
+        sb.append("                     +(attr==''?'['+(ix+1)+']':attr)");
+        sb.append("             ;}\n");
+        sb.append("    	        if (sibling.nodeType===1 && sibling.tagName===element.tagName)\n");
+        sb.append("    	            ix++;\n");
+        sb.append("    }}\n");
+        sb.append("return getPathTo(arguments[0]);");
+        String res = "";
+        try {
+            res = (String) webDriver.executeScript(sb.toString(), el);
+            if(!res.startsWith("id")){
+                res = "//"+res;
             }
-            return locator;
+            if (el.findElements(By.xpath("./*")).isEmpty()
+                    && !"".equals(el.getText())) {
+                res = res
+                        + "[contains(.,'" + el.getText().replace("/", "[slh]") + "')]";
+            }
         }
         catch (Exception e){
             LOG.error("The was an error during generating xpath locator",e);
-            return "";
         }
-
+        return res;
     }
 
     public String getNameLocator(WebElement element){
@@ -88,7 +111,7 @@ public class LocatorBuilder {
 
     public String getLinkTextLocator(WebElement element){
         LOG.info(String.format("Building Link Text locator for '%s' element", element.getElementName()));
-        if (!element.getElement().attr("href").equals(null) || !element.getElement().attr("href").equals(""))
+        if (!element.getElement().attr("href").equals(null) && !element.getElement().attr("href").equals(""))
             return element.getElement().text();
         else
             return "";
