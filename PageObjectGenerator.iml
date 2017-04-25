@@ -71,5 +71,6 @@
     <orderEntry type="library" name="Maven: org.watertemplate:watertemplate-engine:1.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.6.4" level="project" />
+    <orderEntry type="library" name="forms_rt (2)" level="project" />
   </component>
 </module>

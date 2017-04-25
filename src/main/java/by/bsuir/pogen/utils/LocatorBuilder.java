@@ -111,7 +111,7 @@ public class LocatorBuilder {
 
     public String getLinkTextLocator(WebElement element){
         LOG.info(String.format("Building Link Text locator for '%s' element", element.getElementName()));
-        if (!element.getElement().attr("href").equals(null) && !element.getElement().attr("href").equals(""))
+        if (!element.getElement().attr("href").equals(null) || !element.getElement().attr("href").equals(""))
             return element.getElement().text();
         else
             return "";
