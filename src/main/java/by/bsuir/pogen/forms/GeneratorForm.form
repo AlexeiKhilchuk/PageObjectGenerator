@@ -10,9 +10,7 @@
     <children>
       <splitpane id="fda85">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <maximum-size width="1000" height="-1"/>
-          </grid>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <dividerSize value="5"/>
@@ -621,7 +619,7 @@
                     </constraints>
                     <properties>
                       <font name="Segoe UI Light" size="18"/>
-                      <text value="Save"/>
+                      <text value="Save Name"/>
                     </properties>
                   </component>
                   <component id="9f98c" class="javax.swing.JButton" binding="btnSetElementReady">
@@ -669,7 +667,7 @@
                     </constraints>
                     <properties>
                       <font name="Segoe UI Light" size="18" style="1"/>
-                      <text value="Save"/>
+                      <text value="Save Locators"/>
                     </properties>
                   </component>
                   <component id="227ca" class="javax.swing.JButton" binding="btnSavePrefferedLocator">
