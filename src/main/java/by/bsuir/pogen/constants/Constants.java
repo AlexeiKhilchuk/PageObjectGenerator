@@ -50,21 +50,6 @@ public class Constants {
         }
     }
 
-    public enum TagsForMethodsGeneration {
-        INPUT("input"),
-        SELECT("select"),
-        BUTTON("button"),
-        LABEL("label");
-
-        private final String name;
-        private TagsForMethodsGeneration(String s) {
-            name = s;
-        }
-        public String toString() {
-            return this.name;
-        }
-    }
-
     public static final String SCRIPT_GET_ELEMENT_BORDER =
         "var elem = arguments[0]; \n" +
         "if (elem.currentStyle) {\n" +

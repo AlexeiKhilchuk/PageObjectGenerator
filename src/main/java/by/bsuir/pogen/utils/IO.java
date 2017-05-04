@@ -1,23 +1,28 @@
 package by.bsuir.pogen.utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by Alexei Khilchuk on 13.02.2017.
  */
 public class IO {
-    public static String getFileSource(File file) throws IOException {
+    public static boolean isPageReadable(File file) {
         StringBuilder contentBuilder = new StringBuilder();
-        BufferedReader in = new BufferedReader(new FileReader(file));
-        String str;
-        while ((str = in.readLine()) != null) {
-            contentBuilder.append(str);
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            return false;
         }
-        in.close();
-
-        return contentBuilder.toString();
+        String str;
+        try {
+            while ((str = in.readLine()) != null) {
+                contentBuilder.append(str);
+            }
+            in.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 }

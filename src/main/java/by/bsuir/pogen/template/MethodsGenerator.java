@@ -10,11 +10,11 @@ import by.bsuir.pogen.utils.LocatorBuilder;
 public class MethodsGenerator {
     Constants.ProgrammingLanguage currentLanguage;
 
-    public MethodsGenerator(Constants.ProgrammingLanguage language){
+    MethodsGenerator(Constants.ProgrammingLanguage language){
         currentLanguage = language;
     }
 
-    public String generateMethodsForElement(WebElement element){
+    String generateMethodsForElement(WebElement element){
         StringBuilder sb = new StringBuilder("");
         String tag = element.getTagNameLocator() == null ? new LocatorBuilder().getTagNameLocator(element) : element.getTagNameLocator();
         if (tag.equals("button")){
@@ -117,20 +117,20 @@ public class MethodsGenerator {
         switch (currentLanguage){
             case JAVA:{
                 sb.append(String.format("    public List<String> getListValues_%s(){ \n", element.getElementName()));
-                sb.append(String.format("        List<String> values = new ArrayList<String>(); "));
+                sb.append("        List<String> values = new ArrayList<String>(); ");
                 sb.append(String.format("        for(WebElement element: %s.findElements(By.xpath(\"/li\"))){ \n", element.getElementName()));
-                sb.append(String.format("             values.add(element.getText()); \n"));
-                sb.append(String.format("        }"));
-                sb.append(String.format("        return values \n    }", element.getElementName()));
+                sb.append("             values.add(element.getText()); \n");
+                sb.append("        }");
+                sb.append("        return values \n    }");
                 break;
             }
             case C_SHARP:{
                 sb.append(String.format("    public List<String> GetListValues_%s(){ \n", element.getElementName()));
-                sb.append(String.format("            List<string> values = new List<string>(); "));
+                sb.append("            List<string> values = new List<string>(); ");
                 sb.append(String.format("            foreach (var element in %s.FindElements(By.XPath(\"/li\"))){ \n", element.getElementName()));
-                sb.append(String.format("                 values.Add(element.text); \n"));
-                sb.append(String.format("            }"));
-                sb.append(String.format("            return values \n        }", element.getElementName()));
+                sb.append("                 values.Add(element.text); \n");
+                sb.append("            }");
+                sb.append("            return values \n        }");
                 break;
             }
         }
@@ -143,13 +143,13 @@ public class MethodsGenerator {
             case JAVA:{
                 sb.append(String.format("    public List<String> selectOption_%s(int option){ \n", element.getElementName()));
                 sb.append(String.format("        List<WebElement> elements = %s.findElements(By.xpath(\"/option\")); \n", element.getElementName()));
-                sb.append(String.format("        elements.get(option).setValue(true); \n    }"));
+                sb.append("        elements.get(option).setValue(true); \n    }");
                 break;
             }
             case C_SHARP:{
                 sb.append(String.format("    public List<String> SelectOption_%s(int option){ \n", element.getElementName()));
                 sb.append(String.format("            List<RemoteWebElement> elements = %s.FindElements(By.XPath(\"/option\")); \n", element.getElementName()));
-                sb.append(String.format("            elements.Get(option).SetValue(true); \n        }"));
+                sb.append("            elements.Get(option).SetValue(true); \n        }");
                 break;
             }
         }

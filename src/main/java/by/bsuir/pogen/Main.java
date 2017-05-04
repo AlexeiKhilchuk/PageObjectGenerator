@@ -1,6 +1,6 @@
 package by.bsuir.pogen;
 
-import by.bsuir.pogen.forms.MainForm;
+import by.bsuir.pogen.forms.FetcherForm;
 
 import javax.swing.*;
 
@@ -9,7 +9,7 @@ import javax.swing.*;
  */
 public class Main {
     public static void main(String[] args) {
-        MainForm mainForm = new MainForm();
+        FetcherForm mainForm = new FetcherForm();
         mainForm.setContentPane(mainForm.mainPanel);
         mainForm.setSize(500, 400);
         mainForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

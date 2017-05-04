@@ -9,11 +9,11 @@ import by.bsuir.pogen.models.WebElement;
 public class ObjectGenerator {
     Constants.ProgrammingLanguage currentLanguage;
 
-    public ObjectGenerator(Constants.ProgrammingLanguage language){
+    ObjectGenerator(Constants.ProgrammingLanguage language){
         currentLanguage = language;
     }
 
-    public String getObjectDeclaration(WebElement element){
+    String getObjectDeclaration(WebElement element){
         String objectDeclaration = generateObjectDeclaration(element);
 
         if (element.getMultipleElements()){
@@ -34,11 +34,11 @@ public class ObjectGenerator {
         return objectDeclaration;
     }
 
-    public String getFindElementBy(WebElement element){
+    private String getFindElementBy(WebElement element){
         return getFindElementBy(element, element.getPreferredLocatorType());
     }
 
-    public String getFindElementBy(WebElement element, Constants.LocatorType locatorType){
+    private String getFindElementBy(WebElement element, Constants.LocatorType locatorType){
         String findBy = null;
         switch (currentLanguage){
             case JAVA:{

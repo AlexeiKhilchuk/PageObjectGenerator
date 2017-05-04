@@ -23,7 +23,7 @@ public class ClassEditorForm extends JFrame {
     private JEditorPane epCode;
     private JButton btnSave;
 
-    public ClassEditorForm(Template classTemplate, final Constants.ProgrammingLanguage language) {
+    ClassEditorForm(Template classTemplate, final Constants.ProgrammingLanguage language) {
         super("Generated Page Object Class");
         epCode.setText(classTemplate.render());
         btnSave.addActionListener(new ActionListener() {
@@ -34,7 +34,7 @@ public class ClassEditorForm extends JFrame {
         });
     }
 
-    public void saveAs(Constants.ProgrammingLanguage language) {
+    private void saveAs(Constants.ProgrammingLanguage language) {
         FileNameExtensionFilter extensionFilter = null;
         switch (language) {
             case JAVA: {
