@@ -236,6 +236,7 @@ public class GeneratorForm extends JFrame {
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Element name can not be empty.");
+                        tbElementName.setText(selectedElement.getElementName());
                     }
 
                 }
