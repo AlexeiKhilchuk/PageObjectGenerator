@@ -15,11 +15,6 @@
             <version>7.0.3</version>
         </dependency>
         <dependency>
-            <groupId>jgoodies</groupId>
-            <artifactId>forms</artifactId>
-            <version>1.0.5</version>
-        </dependency>
-        <dependency>
             <!-- HTML parser library -->
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -29,17 +24,12 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-firefox-driver</artifactId>
-            <version>3.2.0</version>
+            <version>3.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>htmlunit-driver</artifactId>
-            <version>2.24</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-server</artifactId>
-            <version>3.2.0</version>
+            <artifactId>selenium-java</artifactId>
+            <version>3.4.0</version>
         </dependency>
         <!-- Template Engine -->
         <dependency>
@@ -49,14 +39,9 @@
         </dependency>
         <!-- Logger -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.6.4</version>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
         </dependency>
 
     </dependencies>
@@ -89,7 +74,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>by.bsuir.pogen.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

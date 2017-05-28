@@ -1,6 +1,8 @@
 package by.bsuir.pogen.utils;
 
 import by.bsuir.pogen.constants.Constants;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -13,12 +15,9 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Arrays;
 
 import static by.bsuir.pogen.constants.Constants.SCRIPT_GET_ELEMENT_BORDER;
@@ -29,7 +28,7 @@ import static by.bsuir.pogen.constants.Constants.SCRIPT_UNHIGHLIGHT_ELEMENT;
  * Created by Alexei Khilchuk on 04.03.2017.
  */
 public class WebDriverHelper {
-    static Logger LOG = LoggerFactory.getLogger(WebDriverHelper.class.getName());
+    static Logger LOG = Logger.getLogger(WebDriverHelper.class.getName());
     private static WebElement lastElem = null;
     private static String lastBorder = null;
 
@@ -58,23 +57,22 @@ public class WebDriverHelper {
 
     private static RemoteWebDriver getChromeDriver(Proxy proxy) {
         String platform = System.getProperty("os.name").toLowerCase();
-        URL myTestURL = null;
         File myFile = null;
-        if (platform.contains("win")) {
-            myTestURL = ClassLoader.getSystemResource("chromedriver.exe");
-        } else if (platform.contains("mac")) {
-            myTestURL = ClassLoader.getSystemResource("chromedriver_mac");
-        } else if (platform.contains("linux")) {
-            myTestURL = ClassLoader.getSystemResource("chromedriver_linux");
-        } else {
-            LOG.info(String.format("Unsupported platform: %1$s for chrome browser %n", platform));
-        }
+
         ChromeOptions options = null;
         DesiredCapabilities cp1 = DesiredCapabilities.chrome();
         cp1.setCapability("chrome.switches", Arrays.asList("--disable-popup-blocking"));
         try {
-            myFile = new File(myTestURL.toURI());
-        } catch (URISyntaxException e1) {
+            if (platform.contains("win")) {
+                myFile = new File("chromedriver.exe");
+            } else if (platform.contains("mac")) {
+                myFile = new File("chromedriver_mac");
+            } else if (platform.contains("linux")) {
+                myFile = new File("chromedriver_linux");
+            } else {
+                LOG.info(String.format("Unsupported platform: %1$s for chrome browser %n", platform));
+            }
+        } catch (Exception e1) {
             LOG.error( WebDriverHelper.class.getName() + ".getChromeDriver", e1);
         }
         System.setProperty("webdriver.chrome.driver", myFile.getAbsolutePath());

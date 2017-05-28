@@ -2,14 +2,12 @@ package by.bsuir.pogen.utils;
 
 import by.bsuir.pogen.models.WebElement;
 import by.bsuir.pogen.models.WebElementNode;
+import org.apache.log4j.Logger;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.RemoteWebElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.Enumeration;
 
@@ -17,7 +15,7 @@ import java.util.Enumeration;
  * Created by alexei.khilchuk on 31/03/2017.
  */
 public class LocatorBuilder {
-    static Logger LOG = LoggerFactory.getLogger(LocatorBuilder.class.getName());
+    static Logger LOG = Logger.getLogger(LocatorBuilder.class.getName());
 
 
     public String getCssLocator(WebElement element){

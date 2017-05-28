@@ -9,13 +9,12 @@ import by.bsuir.pogen.utils.LocatorBuilder;
 import by.bsuir.pogen.utils.WebDriverHelper;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.watertemplate.Template;
 
 import javax.swing.*;
@@ -37,7 +36,7 @@ import static by.bsuir.pogen.constants.Constants.GENERATION_IN_PROGRESS;
  * Created by Alexei Khilchuk on 13.02.2017.
  */
 public class GeneratorForm extends JFrame {
-    static Logger LOG = LoggerFactory.getLogger(GeneratorForm.class.getName());
+    static Logger LOG = Logger.getLogger(GeneratorForm.class.getName());
     private LocatorBuilder locatorBuilder = new LocatorBuilder();
     private ArrayList listOfPrepearedElements = new ArrayList<WebElement>();
 
