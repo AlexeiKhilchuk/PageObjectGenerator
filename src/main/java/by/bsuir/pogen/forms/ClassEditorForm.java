@@ -102,12 +102,33 @@ public class ClassEditorForm extends JFrame {
         final JScrollPane scrollPane1 = new JScrollPane();
         mainPanel.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         epCode = new JEditorPane();
-        epCode.setFont(new Font("Courier New", epCode.getFont().getStyle(), 16));
+        Font epCodeFont = this.$$$getFont$$$("Courier New", -1, 16, epCode.getFont());
+        if (epCodeFont != null) epCode.setFont(epCodeFont);
         scrollPane1.setViewportView(epCode);
         btnSave = new JButton();
-        btnSave.setFont(new Font("Segoe UI Semibold", btnSave.getFont().getStyle(), 18));
+        Font btnSaveFont = this.$$$getFont$$$("Segoe UI Semibold", -1, 18, btnSave.getFont());
+        if (btnSaveFont != null) btnSave.setFont(btnSaveFont);
         btnSave.setText("Save Class");
         mainPanel.add(btnSave, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**

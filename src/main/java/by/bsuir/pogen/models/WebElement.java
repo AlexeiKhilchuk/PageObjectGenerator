@@ -1,6 +1,7 @@
 package by.bsuir.pogen.models;
 import by.bsuir.pogen.constants.Constants;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import static by.bsuir.pogen.constants.Constants.LocatorType.XPATH;
 
@@ -170,27 +171,35 @@ public class WebElement {
     }
 
     private String generateElementName(){
-        String resultName = this.element.tagName();
+        //String resultName = this.element.tagName();
+        String resultName = "";
 
         if (!this.element.attr("name").equals("")) {
-            resultName += ("_" + this.element.attr("name"));
+            resultName += (this.element.attr("name"));
         }
         else if (!this.element.attr("id").equals("")){
-            resultName += ("_" + this.element.attr("id"));
+            resultName += (this.element.attr("id"));
+        }
+        else if (!this.element.attr("resource-id").equals("")){
+            resultName += (this.element.attr("resource-id"));
+        }
+        else if (!this.element.tagName().equals(""))
+        {
+            resultName += this.element.tagName();
         }
         else if (!this.element.attr("class").equals("")){
-            resultName += ("_" + this.element.attr("class"));
+            resultName += (this.element.attr("class"));
         }
         else if (!this.element.attr("href").equals("")){
-            resultName += ("_" + this.element.attr("href"));
+            resultName += (this.element.attr("href"));
         }
 
         resultName = resultName.replaceAll(" ", "_");
         resultName = resultName.replaceAll("-", "_");
-        resultName = resultName.replaceAll("\\.", "");
-        resultName = resultName.replaceAll("http://", "");
+      //  resultName = resultName.replaceAll("\\.", "");
+       resultName = resultName.replaceAll("http://", "");
         resultName = resultName.replaceAll("https://", "");
-        resultName = resultName.replaceAll("/", "");
+       // resultName = resultName.replaceAll("/", "");
         resultName = resultName.replaceAll("#","");
 
         return resultName;

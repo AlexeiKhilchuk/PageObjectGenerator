@@ -30,7 +30,7 @@ public class Constants {
         }
     }
 
-    public enum BrowserType {CHROME, FIREFOX}
+    public enum BrowserType {CHROME, FIREFOX, ANDROID}
 
     public enum LocatorType {
         NAME("Name locator"),
