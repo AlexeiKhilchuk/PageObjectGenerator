@@ -173,7 +173,7 @@
                   <text value="Web Element Properties:"/>
                 </properties>
               </component>
-              <grid id="696ec" binding="pnlWebElementProps" layout-manager="GridLayoutManager" row-count="15" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="696ec" binding="pnlWebElementProps" layout-manager="GridLayoutManager" row-count="14" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <splitpane position="right"/>
@@ -206,7 +206,7 @@
                   </component>
                   <component id="4883d" class="javax.swing.JTextField" binding="tbLinkText">
                     <constraints>
-                      <grid row="9" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="10" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                         <maximum-size width="-1" height="390"/>
@@ -229,7 +229,7 @@
                   </component>
                   <component id="20daf" class="javax.swing.JTextField" binding="tbCss">
                     <constraints>
-                      <grid row="10" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="11" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                         <maximum-size width="-1" height="390"/>
@@ -252,7 +252,7 @@
                   </component>
                   <component id="f098a" class="javax.swing.JButton" binding="btnSaveLinkTextLocator">
                     <constraints>
-                      <grid row="9" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="10" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="-1" height="30"/>
                       </grid>
                     </constraints>
@@ -263,19 +263,7 @@
                   </component>
                   <component id="d8b9e" class="javax.swing.JButton" binding="btnSaveCssLocator">
                     <constraints>
-                      <grid row="10" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="-1" height="30"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <font name="Segoe UI Light" size="18"/>
-                      <text value="Save"/>
-                    </properties>
-                  </component>
-                  <component id="7c26d" class="javax.swing.JButton" binding="btnSaveXpathLocator">
-                    <constraints>
                       <grid row="11" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                        <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
                     </constraints>
@@ -297,9 +285,9 @@
                       <text value="Tag Name:"/>
                     </properties>
                   </component>
-                  <component id="fe1b3" class="javax.swing.JLabel">
+                  <component id="fe1b3" class="javax.swing.JLabel" binding="lblLinkText">
                     <constraints>
-                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                      <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="213" height="25"/>
                       </grid>
                     </constraints>
@@ -310,20 +298,7 @@
                       <text value="Link Text:"/>
                     </properties>
                   </component>
-                  <component id="50bbf" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
-                        <preferred-size width="213" height="25"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <font name="Segoe UI Semibold" size="18"/>
-                      <horizontalAlignment value="4"/>
-                      <labelFor value="20daf"/>
-                      <text value="CSS:"/>
-                    </properties>
-                  </component>
-                  <component id="e2e1" class="javax.swing.JLabel">
+                  <component id="50bbf" class="javax.swing.JLabel" binding="lblCss">
                     <constraints>
                       <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="213" height="25"/>
@@ -332,8 +307,8 @@
                     <properties>
                       <font name="Segoe UI Semibold" size="18"/>
                       <horizontalAlignment value="4"/>
-                      <labelFor value="ddcff"/>
-                      <text value="XPath:"/>
+                      <labelFor value="20daf"/>
+                      <text value="CSS:"/>
                     </properties>
                   </component>
                   <component id="b3e2c" class="javax.swing.JLabel">
@@ -351,7 +326,7 @@
                   </component>
                   <component id="aa332" class="javax.swing.JComboBox" binding="cbPrefferedLocator">
                     <constraints>
-                      <grid row="13" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="12" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -362,7 +337,7 @@
                   </component>
                   <component id="97628" class="javax.swing.JLabel">
                     <constraints>
-                      <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                      <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="213" height="53"/>
                       </grid>
                     </constraints>
@@ -424,18 +399,6 @@
                   </component>
                   <component id="f8216" class="javax.swing.JButton" binding="btnGenerateLinkTextLocator">
                     <constraints>
-                      <grid row="9" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                        <minimum-size width="-1" height="30"/>
-                        <preferred-size width="-1" height="30"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <font name="Segoe UI Light" size="18"/>
-                      <text value="Generate"/>
-                    </properties>
-                  </component>
-                  <component id="3568" class="javax.swing.JButton" binding="btnGenerateCssLocator">
-                    <constraints>
                       <grid row="10" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
@@ -446,7 +409,7 @@
                       <text value="Generate"/>
                     </properties>
                   </component>
-                  <component id="58cdd" class="javax.swing.JButton" binding="btnGenerateXpathLocator">
+                  <component id="3568" class="javax.swing.JButton" binding="btnGenerateCssLocator">
                     <constraints>
                       <grid row="11" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
@@ -460,7 +423,7 @@
                   </component>
                   <component id="a1e67" class="javax.swing.JButton" binding="btnGenerateLocatorsForElement">
                     <constraints>
-                      <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -472,7 +435,7 @@
                   </component>
                   <component id="da01b" class="javax.swing.JButton" binding="btnValidatePrefferedLocator">
                     <constraints>
-                      <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -480,18 +443,6 @@
                     <properties>
                       <font name="Segoe UI Light" size="18"/>
                       <text value="Validate Preferred Locator"/>
-                    </properties>
-                  </component>
-                  <component id="ddcff" class="javax.swing.JTextField" binding="tbXpath">
-                    <constraints>
-                      <grid row="11" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <minimum-size width="-1" height="30"/>
-                        <preferred-size width="-1" height="30"/>
-                        <maximum-size width="-1" height="390"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <font name="Segoe UI" size="14"/>
                     </properties>
                   </component>
                   <component id="15c75" class="javax.swing.JLabel">
@@ -654,7 +605,7 @@
                   </component>
                   <component id="389cb" class="javax.swing.JButton" binding="btnShowOnPage">
                     <constraints>
-                      <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="13" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -666,7 +617,7 @@
                   </component>
                   <component id="5d486" class="javax.swing.JButton" binding="btnSaveAllLocators">
                     <constraints>
-                      <grid row="14" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="13" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>
@@ -678,7 +629,56 @@
                   </component>
                   <component id="227ca" class="javax.swing.JButton" binding="btnSavePrefferedLocator">
                     <constraints>
-                      <grid row="13" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="12" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Save"/>
+                    </properties>
+                  </component>
+                  <component id="e2e1" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="213" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Semibold" size="18"/>
+                      <horizontalAlignment value="4"/>
+                      <labelFor value="ddcff"/>
+                      <text value="XPath:"/>
+                    </properties>
+                  </component>
+                  <component id="ddcff" class="javax.swing.JTextField" binding="tbXpath">
+                    <constraints>
+                      <grid row="9" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                        <maximum-size width="-1" height="390"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI" size="14"/>
+                    </properties>
+                  </component>
+                  <component id="58cdd" class="javax.swing.JButton" binding="btnGenerateXpathLocator">
+                    <constraints>
+                      <grid row="9" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <minimum-size width="-1" height="30"/>
+                        <preferred-size width="-1" height="30"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Segoe UI Light" size="18"/>
+                      <text value="Generate"/>
+                    </properties>
+                  </component>
+                  <component id="7c26d" class="javax.swing.JButton" binding="btnSaveXpathLocator">
+                    <constraints>
+                      <grid row="9" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
                       </grid>

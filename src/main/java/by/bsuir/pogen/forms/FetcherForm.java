@@ -38,7 +38,6 @@ public class FetcherForm extends JFrame {
     private JTextField tbApk;
     private JTextField tbPackage;
     private JTextField tbActivity;
-    private JButton fetchActivityButton;
 
     private String pagePath;
     private RemoteWebDriver webDriver;
@@ -88,21 +87,6 @@ public class FetcherForm extends JFrame {
                 loadAndroidAppAppium();
             }
         });
-        fetchActivityButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fetchActivity();
-            }
-        });
-    }
-
-    private void fetchActivity() {
-        if (androidDriver != null) {
-
-            System.out.println();
-        } else {
-            JOptionPane.showMessageDialog(null, "Application was not loaded before fetching activity");
-        }
     }
 
     private void loadAndroidAppAppium() {
@@ -111,8 +95,9 @@ public class FetcherForm extends JFrame {
             System.setProperty("appPackage", tbPackage.getText());
             System.setProperty("appActivity", tbActivity.getText());
             androidDriver = (AndroidDriver) WebDriverHelper.getWebDriver(Constants.BrowserType.ANDROID, null);
-            fetchActivityButton.setEnabled(true);
             lblSource.setText("(apk)");
+            lblHtmlLoaded.setText(Constants.LoadStatus.LOADED.toString());
+            lblHtmlLoaded.setForeground(Color.GREEN);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Unable to load apk. \n" + e.getMessage());
         }
@@ -226,12 +211,12 @@ public class FetcherForm extends JFrame {
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayoutManager(13, 8, new Insets(0, 0, 0, 0), -1, -1));
+        mainPanel.setLayout(new GridLayoutManager(14, 8, new Insets(0, 0, 0, 0), -1, -1));
         btnAnalyze = new JButton();
         Font btnAnalyzeFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, btnAnalyze.getFont());
         if (btnAnalyzeFont != null) btnAnalyze.setFont(btnAnalyzeFont);
         btnAnalyze.setText("Analyze Source");
-        mainPanel.add(btnAnalyze, new GridConstraints(11, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 30), null, 0, false));
+        mainPanel.add(btnAnalyze, new GridConstraints(12, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 30), null, 0, false));
         final JLabel label1 = new JLabel();
         Font label1Font = this.$$$getFont$$$("Segoe UI Semibold", -1, 18, label1.getFont());
         if (label1Font != null) label1.setFont(label1Font);
@@ -255,28 +240,28 @@ public class FetcherForm extends JFrame {
         Font label3Font = this.$$$getFont$$$("Segoe UI Semibold", -1, 18, label3.getFont());
         if (label3Font != null) label3.setFont(label3Font);
         label3.setText("Status:");
-        mainPanel.add(label3, new GridConstraints(10, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(85, 16), null, 0, false));
+        mainPanel.add(label3, new GridConstraints(11, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(85, 16), null, 0, false));
         final Spacer spacer1 = new Spacer();
-        mainPanel.add(spacer1, new GridConstraints(0, 7, 13, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(10, 10), null, null, 0, false));
+        mainPanel.add(spacer1, new GridConstraints(0, 7, 14, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(10, 10), null, null, 0, false));
         final Spacer spacer2 = new Spacer();
-        mainPanel.add(spacer2, new GridConstraints(0, 0, 13, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(10, 10), new Dimension(9, 11), null, 0, false));
+        mainPanel.add(spacer2, new GridConstraints(0, 0, 14, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(10, 10), new Dimension(9, 11), null, 0, false));
         final Spacer spacer3 = new Spacer();
-        mainPanel.add(spacer3, new GridConstraints(12, 1, 1, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(10, 10), null, null, 0, false));
+        mainPanel.add(spacer3, new GridConstraints(13, 1, 1, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(10, 10), null, null, 0, false));
         lblHtmlLoaded = new JLabel();
         lblHtmlLoaded.setForeground(new Color(-4521962));
         lblHtmlLoaded.setText("NOT LOADED");
-        mainPanel.add(lblHtmlLoaded, new GridConstraints(10, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(70, 16), null, 0, false));
+        mainPanel.add(lblHtmlLoaded, new GridConstraints(11, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(70, 16), null, 0, false));
         btnPreview = new JButton();
         btnPreview.setEnabled(false);
         Font btnPreviewFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, btnPreview.getFont());
         if (btnPreviewFont != null) btnPreview.setFont(btnPreviewFont);
         btnPreview.setText("Preview");
-        mainPanel.add(btnPreview, new GridConstraints(10, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(97, 30), null, 0, false));
+        mainPanel.add(btnPreview, new GridConstraints(11, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(97, 30), null, 0, false));
         lblSource = new JLabel();
         Font lblSourceFont = this.$$$getFont$$$("Segoe UI Semibold", -1, 18, lblSource.getFont());
         if (lblSourceFont != null) lblSource.setFont(lblSourceFont);
         lblSource.setText("");
-        mainPanel.add(lblSource, new GridConstraints(10, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, -1), new Dimension(79, 0), null, 0, false));
+        mainPanel.add(lblSource, new GridConstraints(11, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, -1), new Dimension(79, 0), null, 0, false));
         fetchButton = new JButton();
         Font fetchButtonFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, fetchButton.getFont());
         if (fetchButtonFont != null) fetchButton.setFont(fetchButtonFont);
@@ -291,12 +276,12 @@ public class FetcherForm extends JFrame {
         Font tbApkFont = this.$$$getFont$$$("Segoe UI", -1, 16, tbApk.getFont());
         if (tbApkFont != null) tbApk.setFont(tbApkFont);
         tbApk.setText("/Users/alexei_khilchuk/taxi-android-passenger_develop-0.23.1-DEVELOP-12937-prod-release.apk");
-        mainPanel.add(tbApk, new GridConstraints(6, 3, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
+        mainPanel.add(tbApk, new GridConstraints(6, 3, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         tbActivity = new JTextField();
         Font tbActivityFont = this.$$$getFont$$$("Segoe UI", -1, 16, tbActivity.getFont());
         if (tbActivityFont != null) tbActivity.setFont(tbActivityFont);
         tbActivity.setText("com.multibrains.taxi.android.presentation.LauncherActivity");
-        mainPanel.add(tbActivity, new GridConstraints(8, 3, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
+        mainPanel.add(tbActivity, new GridConstraints(8, 3, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         final JSeparator separator1 = new JSeparator();
         mainPanel.add(separator1, new GridConstraints(4, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final JLabel label5 = new JLabel();
@@ -308,7 +293,7 @@ public class FetcherForm extends JFrame {
         Font tbPackageFont = this.$$$getFont$$$("Segoe UI", -1, 16, tbPackage.getFont());
         if (tbPackageFont != null) tbPackage.setFont(tbPackageFont);
         tbPackage.setText("com.multibrains.taxi.passenger.develop");
-        mainPanel.add(tbPackage, new GridConstraints(7, 3, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
+        mainPanel.add(tbPackage, new GridConstraints(7, 3, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), null, 0, false));
         final JLabel label6 = new JLabel();
         Font label6Font = this.$$$getFont$$$("Segoe UI Semibold", -1, 18, label6.getFont());
         if (label6Font != null) label6.setFont(label6Font);
@@ -320,18 +305,12 @@ public class FetcherForm extends JFrame {
         label7.setText("L. Activity:");
         mainPanel.add(label7, new GridConstraints(8, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(85, 22), null, 0, false));
         final JSeparator separator2 = new JSeparator();
-        mainPanel.add(separator2, new GridConstraints(9, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        mainPanel.add(separator2, new GridConstraints(10, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         loadAppButton = new JButton();
         Font loadAppButtonFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, loadAppButton.getFont());
         if (loadAppButtonFont != null) loadAppButton.setFont(loadAppButtonFont);
         loadAppButton.setText("Load App");
-        mainPanel.add(loadAppButton, new GridConstraints(7, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(97, 30), null, 0, false));
-        fetchActivityButton = new JButton();
-        fetchActivityButton.setEnabled(false);
-        Font fetchActivityButtonFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, fetchActivityButton.getFont());
-        if (fetchActivityButtonFont != null) fetchActivityButton.setFont(fetchActivityButtonFont);
-        fetchActivityButton.setText("Fetch Activity");
-        mainPanel.add(fetchActivityButton, new GridConstraints(8, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(97, 30), null, 0, false));
+        mainPanel.add(loadAppButton, new GridConstraints(9, 2, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(97, 30), null, 0, false));
         label1.setLabelFor(tbUrl);
         label4.setLabelFor(tbUrl);
         label5.setLabelFor(tbUrl);

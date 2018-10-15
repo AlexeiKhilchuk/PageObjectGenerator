@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="by.bsuir.pogen.forms.FetcherForm">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="13" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="14" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="680" height="395"/>
+      <xy x="20" y="20" width="680" height="430"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
       <component id="1ce64" class="javax.swing.JButton" binding="btnAnalyze">
         <constraints>
-          <grid row="11" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="12" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="-1" height="30"/>
           </grid>
         </constraints>
@@ -61,7 +61,7 @@
       </component>
       <component id="febef" class="javax.swing.JLabel">
         <constraints>
-          <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="85" height="16"/>
           </grid>
         </constraints>
@@ -72,14 +72,14 @@
       </component>
       <hspacer id="57282">
         <constraints>
-          <grid row="0" column="7" row-span="13" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="0" column="7" row-span="14" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="10" height="10"/>
           </grid>
         </constraints>
       </hspacer>
       <hspacer id="582d">
         <constraints>
-          <grid row="0" column="0" row-span="13" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="14" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="10" height="10"/>
             <preferred-size width="9" height="11"/>
           </grid>
@@ -87,14 +87,14 @@
       </hspacer>
       <hspacer id="b422e">
         <constraints>
-          <grid row="12" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="13" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="10" height="10"/>
           </grid>
         </constraints>
       </hspacer>
       <component id="f70a2" class="javax.swing.JLabel" binding="lblHtmlLoaded">
         <constraints>
-          <grid row="10" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="11" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="70" height="16"/>
           </grid>
         </constraints>
@@ -105,7 +105,7 @@
       </component>
       <component id="c60f6" class="javax.swing.JButton" binding="btnPreview">
         <constraints>
-          <grid row="10" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="11" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="97" height="30"/>
           </grid>
         </constraints>
@@ -117,7 +117,7 @@
       </component>
       <component id="944fb" class="javax.swing.JLabel" binding="lblSource">
         <constraints>
-          <grid row="10" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="11" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="50" height="-1"/>
             <preferred-size width="79" height="0"/>
           </grid>
@@ -150,7 +150,7 @@
       </component>
       <component id="a3c45" class="javax.swing.JTextField" binding="tbApk">
         <constraints>
-          <grid row="6" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="6" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="30"/>
           </grid>
         </constraints>
@@ -161,7 +161,7 @@
       </component>
       <component id="7e707" class="javax.swing.JTextField" binding="tbActivity">
         <constraints>
-          <grid row="8" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="8" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="30"/>
           </grid>
         </constraints>
@@ -190,7 +190,7 @@
       </component>
       <component id="93658" class="javax.swing.JTextField" binding="tbPackage">
         <constraints>
-          <grid row="7" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="7" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="30"/>
           </grid>
         </constraints>
@@ -225,31 +225,19 @@
       </component>
       <component id="38f2" class="javax.swing.JSeparator">
         <constraints>
-          <grid row="9" column="1" row-span="1" col-span="6" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="10" column="1" row-span="1" col-span="6" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
       <component id="a6f0b" class="javax.swing.JButton" binding="loadAppButton">
         <constraints>
-          <grid row="7" column="5" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="9" column="2" row-span="1" col-span="4" vsize-policy="7" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="97" height="30"/>
           </grid>
         </constraints>
         <properties>
           <font name="Segoe UI Light" size="18"/>
           <text value="Load App"/>
-        </properties>
-      </component>
-      <component id="df168" class="javax.swing.JButton" binding="fetchActivityButton">
-        <constraints>
-          <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="97" height="30"/>
-          </grid>
-        </constraints>
-        <properties>
-          <enabled value="false"/>
-          <font name="Segoe UI Light" size="18"/>
-          <text value="Fetch Activity"/>
         </properties>
       </component>
     </children>
