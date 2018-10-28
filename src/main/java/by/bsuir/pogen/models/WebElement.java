@@ -3,12 +3,14 @@ import by.bsuir.pogen.constants.Constants;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.Serializable;
+
 import static by.bsuir.pogen.constants.Constants.LocatorType.XPATH;
 
 /**
  * Created by alexei.khilchuk on 31/03/2017.
  */
-public class WebElement {
+public class WebElement implements Serializable {
     private Element element;
 
     private String elementName;

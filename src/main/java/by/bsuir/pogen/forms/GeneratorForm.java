@@ -1,6 +1,7 @@
 package by.bsuir.pogen.forms;
 
 import by.bsuir.pogen.constants.Constants;
+import by.bsuir.pogen.models.ExportModel;
 import by.bsuir.pogen.models.WebElement;
 import by.bsuir.pogen.models.WebElementNode;
 import by.bsuir.pogen.template.CSharpClassTemplate;
@@ -9,7 +10,12 @@ import by.bsuir.pogen.utils.LocatorBuilder;
 import by.bsuir.pogen.utils.WebDriverHelper;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,8 +34,12 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.XMLEncoder;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 
 import static by.bsuir.pogen.constants.Constants.GENERATION_IN_PROGRESS;
 
@@ -85,6 +95,8 @@ public class GeneratorForm extends JFrame {
     private RemoteWebDriver webDriver;
     private WebElementNode htmlTree;
     private WebElement selectedElement;
+
+    private final XStream xStream = new XStream(new DomDriver());
 
     GeneratorForm(RemoteWebDriver currentWebDriver) {
         super("Page Object Generator: " + ((currentWebDriver instanceof AndroidDriver) ? "Mobile Activity" : currentWebDriver.getTitle()));
@@ -647,7 +659,7 @@ public class GeneratorForm extends JFrame {
                     }
                     case C_SHARP: {
                         classTemplate = new CSharpClassTemplate(className,
-                                listOfPrepearedElements, chbGenerateMethods.isSelected(),  webDriver instanceof AndroidDriver);
+                                listOfPrepearedElements, chbGenerateMethods.isSelected(), webDriver instanceof AndroidDriver);
                         break;
                     }
                 }
@@ -678,12 +690,14 @@ public class GeneratorForm extends JFrame {
                 fileChooser.setFileFilter(fileFilter);
                 if (fileChooser.showOpenDialog(mainPanel) == JFileChooser.APPROVE_OPTION) {
                     String filePath = fileChooser.getSelectedFile().getPath();
-                    ObjectInputStream objectinputstream = null;
                     try {
                         FileInputStream streamIn = new FileInputStream(filePath);
-                        objectinputstream = new ObjectInputStream(streamIn);
                         WebElementNode webElementNode = null;
-                        webElementNode = (WebElementNode) objectinputstream.readObject();
+
+                        ExportModel exportModel = (ExportModel) xStream.fromXML(streamIn);
+
+                        webElementNode = exportModel.webElementNode;
+                        importUserObjectsList(exportModel.userObjects.iterator(), webElementNode);
 
                         trWebElements.setModel(new DefaultTreeModel(webElementNode));
                         trWebElements.setSelectionRow(0);
@@ -691,20 +705,23 @@ public class GeneratorForm extends JFrame {
                         trWebElements.repaint();
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
-                    } finally {
-                        if (objectinputstream != null) {
-                            try {
-                                objectinputstream.close();
-                            } catch (IOException e1) {
-                                JOptionPane.showMessageDialog(null, e1.getMessage());
-                            }
-                        }
                     }
-
-
                 }
             }
         });
+    }
+
+    private void importUserObjectsList(Iterator<WebElement> elementIterator, WebElementNode node)
+    {
+        if (node.getChildCount() != 0)
+        {
+            Enumeration childEnumeration = node.children();
+            while (childEnumeration.hasMoreElements()) {
+                WebElementNode elNode = (WebElementNode) childEnumeration.nextElement();
+                importUserObjectsList(elementIterator, elNode);
+                elNode.setUserObject(elementIterator.next());
+            }
+        }
     }
 
     private void validateSelectedElement() {
@@ -712,7 +729,7 @@ public class GeneratorForm extends JFrame {
             Constants.LocatorType type = (Constants.LocatorType) cbPrefferedLocator.getSelectedItem();
             boolean isHandled = false;
             try {
-                java.util.List<org.openqa.selenium.WebElement> elements = new ArrayList<org.openqa.selenium.WebElement>();
+                List<org.openqa.selenium.WebElement> elements = new ArrayList<org.openqa.selenium.WebElement>();
                 String currentLocatorValue = "";
                 switch (type) {
                     case ID: {
@@ -845,18 +862,19 @@ public class GeneratorForm extends JFrame {
                 file = new File(file.getAbsolutePath() + "." + extensionFilter.getExtensions()[0]);
             }
             FileOutputStream fout = null;
-            ObjectOutputStream oos = null;
             try {
+                List<WebElement> userObjects = new ArrayList<>();
+                exportUserObjectsToList(userObjects, node);
                 fout = new FileOutputStream(file, false);
-                oos = new ObjectOutputStream(fout);
-                oos.writeObject(node);
+                ExportModel exportModel = new ExportModel(node, userObjects);
+                xStream.toXML(exportModel, fout);
+
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } finally {
                 if (fout != null) {
                     try {
                         fout.close();
-                        if (oos != null) oos.close();
                     } catch (IOException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
                     }
@@ -865,6 +883,18 @@ public class GeneratorForm extends JFrame {
         }
     }
 
+    private void exportUserObjectsToList(List<WebElement> userObjects, WebElementNode node)
+    {
+        if (node.getChildCount() != 0)
+        {
+            Enumeration childEnumeration = node.children();
+            while (childEnumeration.hasMoreElements()) {
+                WebElementNode elNode = (WebElementNode) childEnumeration.nextElement();
+                exportUserObjectsToList(userObjects, elNode);
+                userObjects.add((WebElement) elNode.getUserObject());
+            }
+        }
+    }
 
     /**
      * Method generated by IntelliJ IDEA GUI Designer
