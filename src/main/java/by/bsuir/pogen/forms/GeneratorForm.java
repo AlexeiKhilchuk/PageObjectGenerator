@@ -90,8 +90,10 @@ public class GeneratorForm extends JFrame {
         super("Page Object Generator: " + ((currentWebDriver instanceof AndroidDriver) ? "Mobile Activity" : currentWebDriver.getTitle()));
         webDriver = currentWebDriver;
         $$$setupUI$$$();
+        Document doc = Jsoup.parse(webDriver.getPageSource());
         if (!(webDriver instanceof AndroidDriver)) {
             webDriver.manage().window().setPosition(new Point(-2000, 0));
+            htmlTree = new WebElementNode(new WebElement(doc.body()));
         } else {
             tbLinkText.setVisible(false);
             btnSaveLinkTextLocator.setVisible(false);
@@ -99,9 +101,10 @@ public class GeneratorForm extends JFrame {
             tbCss.setVisible(false);
             btnGenerateCssLocator.setVisible(false);
             lblCss.setVisible(false);
+            htmlTree = new WebElementNode(new WebElement(doc.body().child(0)));
         }
-        Document doc = Jsoup.parse(webDriver.getPageSource());
-        htmlTree = new WebElementNode(new WebElement(doc.body()));
+
+
         this.trWebElements.setModel(new DefaultTreeModel(htmlTree));
         this.cbPrefferedLocator.setModel(new DefaultComboBoxModel(Constants.LocatorType.values()));
         this.cbProgrammingLanguage.setModel(new DefaultComboBoxModel(Constants.ProgrammingLanguage.values()));
@@ -954,11 +957,11 @@ public class GeneratorForm extends JFrame {
         tbTagName = new JTextField();
         Font tbTagNameFont = this.$$$getFont$$$("Segoe UI", -1, 14, tbTagName.getFont());
         if (tbTagNameFont != null) tbTagName.setFont(tbTagNameFont);
-        pnlWebElementProps.add(tbTagName, new GridConstraints(8, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 390), 0, false));
+        pnlWebElementProps.add(tbTagName, new GridConstraints(8, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         tbLinkText = new JTextField();
         Font tbLinkTextFont = this.$$$getFont$$$("Segoe UI", -1, 14, tbLinkText.getFont());
         if (tbLinkTextFont != null) tbLinkText.setFont(tbLinkTextFont);
-        pnlWebElementProps.add(tbLinkText, new GridConstraints(10, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 390), 0, false));
+        pnlWebElementProps.add(tbLinkText, new GridConstraints(10, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         final JLabel label4 = new JLabel();
         Font label4Font = this.$$$getFont$$$("Segoe UI", Font.BOLD, 18, label4.getFont());
         if (label4Font != null) label4.setFont(label4Font);
@@ -967,7 +970,7 @@ public class GeneratorForm extends JFrame {
         tbCss = new JTextField();
         Font tbCssFont = this.$$$getFont$$$("Segoe UI", -1, 14, tbCss.getFont());
         if (tbCssFont != null) tbCss.setFont(tbCssFont);
-        pnlWebElementProps.add(tbCss, new GridConstraints(11, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 390), 0, false));
+        pnlWebElementProps.add(tbCss, new GridConstraints(11, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         btnSaveTagNameLocator = new JButton();
         Font btnSaveTagNameLocatorFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, btnSaveTagNameLocator.getFont());
         if (btnSaveTagNameLocatorFont != null) btnSaveTagNameLocator.setFont(btnSaveTagNameLocatorFont);
@@ -1010,7 +1013,7 @@ public class GeneratorForm extends JFrame {
         cbPrefferedLocator = new JComboBox();
         Font cbPrefferedLocatorFont = this.$$$getFont$$$("Segoe UI", -1, 14, cbPrefferedLocator.getFont());
         if (cbPrefferedLocatorFont != null) cbPrefferedLocator.setFont(cbPrefferedLocatorFont);
-        pnlWebElementProps.add(cbPrefferedLocator, new GridConstraints(12, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        pnlWebElementProps.add(cbPrefferedLocator, new GridConstraints(12, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         final JLabel label7 = new JLabel();
         Font label7Font = this.$$$getFont$$$("Segoe UI Semibold", -1, 18, label7.getFont());
         if (label7Font != null) label7.setFont(label7Font);
@@ -1061,7 +1064,7 @@ public class GeneratorForm extends JFrame {
         if (btnValidatePrefferedLocatorFont != null)
             btnValidatePrefferedLocator.setFont(btnValidatePrefferedLocatorFont);
         btnValidatePrefferedLocator.setText("Validate Preferred Locator");
-        pnlWebElementProps.add(btnValidatePrefferedLocator, new GridConstraints(13, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        pnlWebElementProps.add(btnValidatePrefferedLocator, new GridConstraints(13, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         final JLabel label9 = new JLabel();
         Font label9Font = this.$$$getFont$$$("Segoe UI Semibold", -1, 18, label9.getFont());
         if (label9Font != null) label9.setFont(label9Font);
@@ -1071,7 +1074,7 @@ public class GeneratorForm extends JFrame {
         tbName = new JTextField();
         Font tbNameFont = this.$$$getFont$$$("Segoe UI", -1, 14, tbName.getFont());
         if (tbNameFont != null) tbName.setFont(tbNameFont);
-        pnlWebElementProps.add(tbName, new GridConstraints(5, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 390), 0, false));
+        pnlWebElementProps.add(tbName, new GridConstraints(5, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         btnGenerateNameLocator = new JButton();
         Font btnGenerateNameLocatorFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, btnGenerateNameLocator.getFont());
         if (btnGenerateNameLocatorFont != null) btnGenerateNameLocator.setFont(btnGenerateNameLocatorFont);
@@ -1091,7 +1094,7 @@ public class GeneratorForm extends JFrame {
         tbId = new JTextField();
         Font tbIdFont = this.$$$getFont$$$("Segoe UI", -1, 14, tbId.getFont());
         if (tbIdFont != null) tbId.setFont(tbIdFont);
-        pnlWebElementProps.add(tbId, new GridConstraints(6, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 390), 0, false));
+        pnlWebElementProps.add(tbId, new GridConstraints(6, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         btnGenerateId = new JButton();
         Font btnGenerateIdFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, btnGenerateId.getFont());
         if (btnGenerateIdFont != null) btnGenerateId.setFont(btnGenerateIdFont);
@@ -1106,7 +1109,7 @@ public class GeneratorForm extends JFrame {
         tbClassName = new JTextField();
         Font tbClassNameFont = this.$$$getFont$$$("Segoe UI", -1, 14, tbClassName.getFont());
         if (tbClassNameFont != null) tbClassName.setFont(tbClassNameFont);
-        pnlWebElementProps.add(tbClassName, new GridConstraints(7, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
+        pnlWebElementProps.add(tbClassName, new GridConstraints(7, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         btnGenerateClassNameLocator = new JButton();
         Font btnGenerateClassNameLocatorFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, btnGenerateClassNameLocator.getFont());
         if (btnGenerateClassNameLocatorFont != null)
@@ -1152,7 +1155,7 @@ public class GeneratorForm extends JFrame {
         tbXpath = new JTextField();
         Font tbXpathFont = this.$$$getFont$$$("Segoe UI", -1, 14, tbXpath.getFont());
         if (tbXpathFont != null) tbXpath.setFont(tbXpathFont);
-        pnlWebElementProps.add(tbXpath, new GridConstraints(9, 1, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(-1, 390), 0, false));
+        pnlWebElementProps.add(tbXpath, new GridConstraints(9, 1, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, 1, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), new Dimension(800, 30), 0, false));
         btnGenerateXpathLocator = new JButton();
         Font btnGenerateXpathLocatorFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, btnGenerateXpathLocator.getFont());
         if (btnGenerateXpathLocatorFont != null) btnGenerateXpathLocator.setFont(btnGenerateXpathLocatorFont);

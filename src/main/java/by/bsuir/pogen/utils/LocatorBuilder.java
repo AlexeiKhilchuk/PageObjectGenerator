@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.Enumeration;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by alexei.khilchuk on 31/03/2017.
@@ -96,16 +97,47 @@ public class LocatorBuilder {
             StringBuilder absPath = new StringBuilder();
             Elements parents = element.getElement().parents();
 
-            for (int j = parents.size() - 1; j >= 0; j--) {
+            for (int j = parents.size() - 3; j >= 0; j--) {
                 Element el = parents.get(j);
+
+                AtomicInteger index = new AtomicInteger(1);
+
                 absPath.append("/");
-                absPath.append(el.tagName());
-                absPath.append("[");
-                absPath.append(el.siblingIndex());
-                absPath.append("]");
+                absPath.append(getAppiumAndroidElementTag(el));
+
+                for (Element sibling : el.siblingElements()) {
+                    if (sibling.siblingIndex() >= el.siblingIndex()) {
+                        break;
+                    }
+                    if (getAppiumAndroidElementTag(sibling).equalsIgnoreCase(getAppiumAndroidElementTag(el))) {
+                        index.getAndIncrement();
+                    }
+                }
+
+                if (index.get() != 1) {
+                    absPath.append("[" + index + "]");
+                }
             }
-            return absPath.toString();
+
+            AtomicInteger index = new AtomicInteger(1);
+            for (Element sibling : element.getElement().siblingElements()) {
+                if (sibling.siblingIndex() >= element.getElement().siblingIndex()) {
+                    break;
+                }
+                if (getAppiumAndroidElementTag(sibling).equalsIgnoreCase(getAppiumAndroidElementTag(element.getElement()))) {
+                    index.getAndIncrement();
+                }
+            }
+
+            return absPath.append("/")
+                    .append(getAppiumAndroidElementTag(element.getElement()))
+                    .append("[" + index + "]")
+                    .toString();
         }
+    }
+
+    private String getAppiumAndroidElementTag(Element el) {
+        return el.hasAttr("class") ? el.attr("class") : el.tagName();
     }
 
     public String getNameLocator(WebElement element) {

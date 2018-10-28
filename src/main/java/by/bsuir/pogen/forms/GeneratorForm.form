@@ -194,10 +194,10 @@
                   </component>
                   <component id="b626e" class="javax.swing.JTextField" binding="tbTagName">
                     <constraints>
-                      <grid row="8" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="8" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
-                        <maximum-size width="-1" height="390"/>
+                        <maximum-size width="-1" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
@@ -206,10 +206,10 @@
                   </component>
                   <component id="4883d" class="javax.swing.JTextField" binding="tbLinkText">
                     <constraints>
-                      <grid row="10" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="10" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
-                        <maximum-size width="-1" height="390"/>
+                        <maximum-size width="-1" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
@@ -229,10 +229,10 @@
                   </component>
                   <component id="20daf" class="javax.swing.JTextField" binding="tbCss">
                     <constraints>
-                      <grid row="11" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="11" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
-                        <maximum-size width="-1" height="390"/>
+                        <maximum-size width="-1" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
@@ -326,9 +326,10 @@
                   </component>
                   <component id="aa332" class="javax.swing.JComboBox" binding="cbPrefferedLocator">
                     <constraints>
-                      <grid row="12" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="12" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
+                        <maximum-size width="-1" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
@@ -438,6 +439,7 @@
                       <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
+                        <maximum-size width="-1" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
@@ -460,10 +462,10 @@
                   </component>
                   <component id="c0486" class="javax.swing.JTextField" binding="tbName">
                     <constraints>
-                      <grid row="5" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="5" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
-                        <maximum-size width="-1" height="390"/>
+                        <maximum-size width="-1" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
@@ -509,10 +511,10 @@
                   </component>
                   <component id="39144" class="javax.swing.JTextField" binding="tbId">
                     <constraints>
-                      <grid row="6" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="6" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
-                        <maximum-size width="-1" height="390"/>
+                        <maximum-size width="-1" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
@@ -546,9 +548,10 @@
                   </component>
                   <component id="c266d" class="javax.swing.JTextField" binding="tbClassName">
                     <constraints>
-                      <grid row="7" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="7" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
+                        <maximum-size width="-1" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
@@ -654,10 +657,10 @@
                   </component>
                   <component id="ddcff" class="javax.swing.JTextField" binding="tbXpath">
                     <constraints>
-                      <grid row="9" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="9" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false">
                         <minimum-size width="-1" height="30"/>
                         <preferred-size width="-1" height="30"/>
-                        <maximum-size width="-1" height="390"/>
+                        <maximum-size width="800" height="30"/>
                       </grid>
                     </constraints>
                     <properties>
