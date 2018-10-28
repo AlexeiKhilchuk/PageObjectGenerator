@@ -1,4 +1,7 @@
 *.class
+.idea
+*.log
+RUNNABLE_JAR
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
