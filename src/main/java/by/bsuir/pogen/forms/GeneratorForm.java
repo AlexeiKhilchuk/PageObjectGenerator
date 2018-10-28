@@ -642,12 +642,12 @@ public class GeneratorForm extends JFrame {
                 switch (language) {
                     case JAVA: {
                         classTemplate = new JavaClassTemplate(className,
-                                listOfPrepearedElements, chbGenerateMethods.isSelected());
+                                listOfPrepearedElements, chbGenerateMethods.isSelected(), webDriver instanceof AndroidDriver);
                         break;
                     }
                     case C_SHARP: {
                         classTemplate = new CSharpClassTemplate(className,
-                                listOfPrepearedElements, chbGenerateMethods.isSelected());
+                                listOfPrepearedElements, chbGenerateMethods.isSelected(),  webDriver instanceof AndroidDriver);
                         break;
                     }
                 }
@@ -889,7 +889,7 @@ public class GeneratorForm extends JFrame {
         final JLabel label1 = new JLabel();
         Font label1Font = this.$$$getFont$$$("Segoe UI", Font.BOLD, 18, label1.getFont());
         if (label1Font != null) label1.setFont(label1Font);
-        label1.setText("Web Elements (right click to set ready):");
+        label1.setText("Elements (right click to set ready):");
         splitPane2.setLeftComponent(label1);
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(4, 3, new Insets(0, 0, 0, 0), -1, -1));
@@ -945,7 +945,7 @@ public class GeneratorForm extends JFrame {
         final JLabel label3 = new JLabel();
         Font label3Font = this.$$$getFont$$$("Segoe UI", Font.BOLD, 18, label3.getFont());
         if (label3Font != null) label3.setFont(label3Font);
-        label3.setText("Web Element Properties:");
+        label3.setText("Element Properties:");
         splitPane3.setLeftComponent(label3);
         pnlWebElementProps = new JPanel();
         pnlWebElementProps.setLayout(new GridLayoutManager(14, 7, new Insets(0, 0, 0, 0), -1, -1));
@@ -1134,7 +1134,7 @@ public class GeneratorForm extends JFrame {
         btnShowOnPage = new JButton();
         Font btnShowOnPageFont = this.$$$getFont$$$("Segoe UI Light", -1, 18, btnShowOnPage.getFont());
         if (btnShowOnPageFont != null) btnShowOnPage.setFont(btnShowOnPageFont);
-        btnShowOnPage.setText("Highlight On Page");
+        btnShowOnPage.setText("Highlight On Source");
         pnlWebElementProps.add(btnShowOnPage, new GridConstraints(13, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(-1, 30), new Dimension(-1, 30), null, 0, false));
         btnSaveAllLocators = new JButton();
         Font btnSaveAllLocatorsFont = this.$$$getFont$$$("Segoe UI Light", Font.BOLD, 18, btnSaveAllLocators.getFont());

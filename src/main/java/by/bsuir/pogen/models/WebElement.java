@@ -202,6 +202,12 @@ public class WebElement {
        // resultName = resultName.replaceAll("/", "");
         resultName = resultName.replaceAll("#","");
 
+        resultName = resultName.replace("[", "_");
+        resultName = resultName.replace("]", "");
+        if (resultName.contains("/"))
+        {
+            resultName = resultName.substring(resultName.lastIndexOf("/") + 1);
+        }
         return resultName;
     }
 

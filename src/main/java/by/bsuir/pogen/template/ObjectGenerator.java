@@ -13,7 +13,7 @@ public class ObjectGenerator {
         currentLanguage = language;
     }
 
-    String getObjectDeclaration(WebElement element){
+    String getObjectDeclaration(WebElement element, boolean isAndroid){
         String objectDeclaration = generateObjectDeclaration(element);
 
         if (element.getMultipleElements()){
@@ -29,7 +29,10 @@ public class ObjectGenerator {
                     break;
                 }
             }
-
+        }
+        if (isAndroid)
+        {
+            objectDeclaration = objectDeclaration.replace("WebElement", "MobileElement");
         }
         return objectDeclaration;
     }
@@ -115,12 +118,6 @@ public class ObjectGenerator {
     private String generateObjectDeclaration(WebElement element){
         String objectDeclaration = null;
         String elementName = element.getElementName();
-
-        if (elementName.contains("/"))
-        {
-            elementName = elementName.substring(elementName.indexOf("/") + 1);
-        }
-
         switch (currentLanguage){
             case JAVA:{
                 objectDeclaration =  String.format("    WebElement %1s = driver.%2s;", elementName, getFindElementBy(element));

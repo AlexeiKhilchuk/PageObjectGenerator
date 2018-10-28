@@ -89,6 +89,9 @@ public class LocatorBuilder {
                     res = res
                             + "[contains(.,'" + el.getText().replace("/", "[slh]") + "')]";
                 }
+                res = res.replace("[", "_");
+                res = res.replace("]", "");
+                res = res.replace("\"", "'");
             } catch (Exception e) {
                 LOG.error("The was an error during generating xpath locator", e);
             }
@@ -105,33 +108,42 @@ public class LocatorBuilder {
                 absPath.append("/");
                 absPath.append(getAppiumAndroidElementTag(el));
 
+                boolean includeIndex = false;
+
                 for (Element sibling : el.siblingElements()) {
-                    if (sibling.siblingIndex() >= el.siblingIndex()) {
-                        break;
-                    }
+
                     if (getAppiumAndroidElementTag(sibling).equalsIgnoreCase(getAppiumAndroidElementTag(el))) {
-                        index.getAndIncrement();
+                        if (sibling.siblingIndex() >= el.siblingIndex()) {
+                            includeIndex = true;
+                        }
+                        else
+                        {
+                            index.getAndIncrement();
+                        }
                     }
                 }
-
-                if (index.get() != 1) {
+                if (includeIndex)
+                {
                     absPath.append("[" + index + "]");
                 }
             }
 
             AtomicInteger index = new AtomicInteger(1);
+            boolean includeIndex = false;
             for (Element sibling : element.getElement().siblingElements()) {
-                if (sibling.siblingIndex() >= element.getElement().siblingIndex()) {
-                    break;
-                }
                 if (getAppiumAndroidElementTag(sibling).equalsIgnoreCase(getAppiumAndroidElementTag(element.getElement()))) {
-                    index.getAndIncrement();
+                    if (sibling.siblingIndex() >= element.getElement().siblingIndex()) {
+                        includeIndex = true;
+                    }
+                    else {
+                        index.getAndIncrement();
+                    }
                 }
             }
 
             return absPath.append("/")
                     .append(getAppiumAndroidElementTag(element.getElement()))
-                    .append("[" + index + "]")
+                    .append(includeIndex ? "[" + index + "]" : "")
                     .toString();
         }
     }

@@ -17,15 +17,15 @@ public class MethodsGenerator {
     String generateMethodsForElement(WebElement element){
         StringBuilder sb = new StringBuilder("");
         String tag = element.getTagNameLocator() == null ? new LocatorBuilder().getTagNameLocator(element) : element.getTagNameLocator();
-        if (tag.equals("button")){
+        if (tag.equals("button") || tag.toLowerCase().contains("button")){
             sb.append(getClickMethod(element)).append('\n');
             sb.append(getGetTextMethod(element)).append('\n');
         }
-        else if (tag.equals("label")){
+        else if (tag.equals("label") || tag.toLowerCase().contains("textview")){
             sb.append(getClickMethod(element)).append('\n');
             sb.append(getGetTextMethod(element)).append('\n');
         }
-        else if (tag.equals("input")){
+        else if (tag.equals("input") || tag.toLowerCase().contains("edittext")){
             sb.append(getClearMethod(element)).append('\n');
             sb.append(getGetTextMethod(element)).append('\n');
             sb.append(getSetValueMethod(element)).append('\n');

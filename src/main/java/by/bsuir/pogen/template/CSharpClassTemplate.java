@@ -13,14 +13,14 @@ import java.util.List;
  */
 public class CSharpClassTemplate extends Template {
 
-    private static Collection<String> elementCollection = new ArrayList<String>();
-    private static Collection<String> methodsCollection = new ArrayList<String>();
+    private Collection<String> elementCollection = new ArrayList<String>();
+    private Collection<String> methodsCollection = new ArrayList<String>();
 
-    public CSharpClassTemplate(String name, List<WebElement> elements, boolean isGenerateMethods){
+    public CSharpClassTemplate(String name, List<WebElement> elements, boolean isGenerateMethods, boolean isAndroid){
         ObjectGenerator objectGenerator = new ObjectGenerator(Constants.ProgrammingLanguage.C_SHARP);
         MethodsGenerator methodsGenerator = new MethodsGenerator(Constants.ProgrammingLanguage.C_SHARP);
         for (WebElement element : elements){
-            elementCollection.add(objectGenerator.getObjectDeclaration(element));
+            elementCollection.add(objectGenerator.getObjectDeclaration(element, isAndroid));
             if (isGenerateMethods && !element.getMultipleElements()){
                 methodsCollection.add(methodsGenerator.generateMethodsForElement(element));
             }
