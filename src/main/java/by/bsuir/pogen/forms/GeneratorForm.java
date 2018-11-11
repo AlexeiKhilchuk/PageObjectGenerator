@@ -40,7 +40,7 @@ import java.util.List;
 import static by.bsuir.pogen.constants.Constants.GENERATION_IN_PROGRESS;
 
 /**
- * Created by Alexei Khilchuk on 13.02.2017.
+ * Created by Alexei Khilchuk on 20.07.2018.
  */
 public class GeneratorForm extends JFrame {
     static Logger LOG = Logger.getLogger(GeneratorForm.class.getName());

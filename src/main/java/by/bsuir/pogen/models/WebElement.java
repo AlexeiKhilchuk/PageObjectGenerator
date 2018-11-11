@@ -8,7 +8,7 @@ import java.io.Serializable;
 import static by.bsuir.pogen.constants.Constants.LocatorType.XPATH;
 
 /**
- * Created by alexei.khilchuk on 31/03/2017.
+ * Created by Alexei Khilchuk on 17.07.2018.
  */
 public class WebElement implements Serializable {
     private Element element;

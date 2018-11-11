@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by alexei.khilchuk on 01/04/2017.
+ * Created by Alexei Khilchuk on 15.08.2018.
  */
 public class JavaClassTemplate extends Template {
 

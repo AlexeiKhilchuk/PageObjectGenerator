@@ -12,6 +12,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Created by Alexei Khilchuk on 05.08.2018.
+ */
 public class LayoutForm extends JFrame {
     private final AndroidDriver androidDriver;
     public JPanel pnlLayout;

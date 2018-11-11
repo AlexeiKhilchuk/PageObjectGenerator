@@ -4,7 +4,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Alexei Khilchuk on 13.02.2017.
+ * Created by Alexei Khilchuk on 13.07.2018.
  */
 public class Http {
     public static boolean isPageExist(String url){

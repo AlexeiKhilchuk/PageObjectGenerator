@@ -5,7 +5,7 @@ import by.bsuir.pogen.forms.FetcherForm;
 import javax.swing.*;
 
 /**
- * Created by Alexei Khilchuk on 13.02.2017.
+ * Created by Alexei Khilchuk on 02.07.2018.
  */
 public class Main {
     public static void main(String[] args) {

@@ -16,7 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Created by alexei.khilchuk on 09/04/2017.
+ * Created by Alexei Khilchuk on 15.08.2018.
  */
 public class ClassEditorForm extends JFrame {
     public JPanel mainPanel;

@@ -3,7 +3,7 @@ package by.bsuir.pogen.utils;
 import java.io.*;
 
 /**
- * Created by Alexei Khilchuk on 13.02.2017.
+ * Created by Alexei Khilchuk on 13.07.2018.
  */
 public class IO {
     public static boolean isPageReadable(File file) {

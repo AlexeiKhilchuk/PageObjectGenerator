@@ -31,7 +31,7 @@ import static by.bsuir.pogen.constants.Constants.SCRIPT_UNHIGHLIGHT_ELEMENT;
 
 
 /**
- * Created by Alexei Khilchuk on 04.03.2017.
+ * Created by Alexei Khilchuk on 13.07.2018.
  */
 public class WebDriverHelper {
     private static final String LOCALHOST = "127.0.0.1";
@@ -72,9 +72,10 @@ public class WebDriverHelper {
         String platform = System.getProperty("os.name").toLowerCase();
         File myFile = null;
 
-        ChromeOptions options = null;
-        DesiredCapabilities cp1 = DesiredCapabilities.chrome();
-        cp1.setCapability("chrome.switches", Arrays.asList("--disable-popup-blocking"));
+        ChromeOptions options = new ChromeOptions();
+
+        options.addArguments("--disable-popup-blocking");
+
         try {
             if (platform.contains("win")) {
                 myFile = new File("chromedriver.exe");
@@ -90,13 +91,9 @@ public class WebDriverHelper {
         }
         System.setProperty("webdriver.chrome.driver", myFile.getAbsolutePath());
 
-        if (options != null) {
-            cp1.setCapability(ChromeOptions.CAPABILITY, options);
-        }
-        if (proxy != null) {
-            cp1.setCapability(CapabilityType.PROXY, proxy);
-        }
-        RemoteWebDriver driver = new ChromeDriver(cp1);
+        System.setProperty("webdriver.chrome.logfile", "/tmp/chromedriver.log");
+        System.setProperty("webdriver.chrome.verboseLogging", "true");
+        RemoteWebDriver driver = new ChromeDriver(options);
         //driver.manage().window().maximize();
         return driver;
     }

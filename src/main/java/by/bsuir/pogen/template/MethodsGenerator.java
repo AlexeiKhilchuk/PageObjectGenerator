@@ -5,7 +5,7 @@ import by.bsuir.pogen.models.WebElement;
 import by.bsuir.pogen.utils.LocatorBuilder;
 
 /**
- * Created by alexei.khilchuk on 08/04/2017.
+ * Created by Alexei Khilchuk on 15.08.2018.
  */
 public class MethodsGenerator {
     Constants.ProgrammingLanguage currentLanguage;

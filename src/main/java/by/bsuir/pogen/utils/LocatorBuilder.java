@@ -15,7 +15,7 @@ import java.util.Enumeration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by alexei.khilchuk on 31/03/2017.
+ * Created by Alexei Khilchuk on 20.07.2018.
  */
 public class LocatorBuilder {
     static Logger LOG = Logger.getLogger(LocatorBuilder.class.getName());
