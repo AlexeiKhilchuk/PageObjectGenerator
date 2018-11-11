@@ -1,7 +1,7 @@
 package by.bsuir.pogen.constants;
 
 /**
- * Created by Alexei Khilchuk on 13.02.2017.
+ * Created by Alexei Khilchuk on 13.07.2018.
  */
 public class Constants {
     public enum ProgrammingLanguage {
